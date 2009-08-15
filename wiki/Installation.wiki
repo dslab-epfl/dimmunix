@@ -2,12 +2,17 @@
 
 = Introduction =
 
-Add your content here.
-
+Dimmunix is based on Java *ASM* instrumentation framework, and runs as a Java agent.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+To use Dimmunix, first download the ASM binaries from 
+[http://download.forge.objectweb.org/asm/asm-3.2-bin.zip]
+and DimmunixASM.jar from
+[https://dslabpc10.epfl.ch/svn/src/immunity/deadlock/ASM/DimmunixASM/DimmunixASM.jar]
+
+Unpack the ASM binaries into any folder.
+
+You can instrument any Java app with Dimmunix by attaching Dimmunix to the app as a java agent, as we illustrate below:
+
+*java -cp $CLASSPATH:<path to ASM 3.2 root folder>/lib/asm-3.2.jar -javaagent:<path to DimmunixASM.jar> Main*
