@@ -2,14 +2,21 @@
 
 = Download Dimmunix =
 
-To use Dimmunix, first download the ASM instrumentation framework from 
+Download the ASM instrumentation framework from 
 [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip]
-and Dimmunix.jar from
+
+Download Dimmunix Java agent from
 [https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixInstrumentation/Dimmunix.jar]
 
-= Download and Install =
+Download Dimmunix source code from 
+[https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixASM]
 
-Unpack the ASM binaries into any folder.
+= Compile Dimmunix =
+
+Go to Dimmunix's root folder and compile Dimmunix by typing 
+ ant
+
+Unpack the ASM binaries.
 
 You can instrument any Java app with Dimmunix by attaching Dimmunix to the app as a java agent, as we illustrate below:
 
