@@ -13,11 +13,12 @@ Download Dimmunix source code from
 
 = Compile Dimmunix =
 
-Go to Dimmunix's root folder and compile Dimmunix by typing 
- ant
+* Go to Dimmunix's root folder and compile Dimmunix by typing 
 
-Unpack the ASM binaries.
+*ant*
 
-You can instrument any Java app with Dimmunix by attaching Dimmunix to the app as a java agent, as we illustrate below:
+* Unpack the ASM binaries.
+
+* You can instrument any Java app with Dimmunix by attaching Dimmunix to the app as a java agent, as we illustrate below:
 
 *java -cp $CLASSPATH:<path to ASM 3.2 root folder>/lib/asm-3.2.jar -javaagent:<path to DimmunixASM.jar> Main*
