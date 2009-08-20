@@ -1,15 +1,13 @@
-#summary Installation Guide for Dimmunix 1.0
+#summary Installing Dimmunix for Java
 
-= Introduction =
+= Download Dimmunix =
 
-Dimmunix is based on Java *ASM* instrumentation framework, and runs as a Java agent.
-
-= Details =
-
-To use Dimmunix, first download the ASM binaries from 
+To use Dimmunix, first download the ASM instrumentation framework from 
 [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip]
-and DimmunixASM.jar from
-[https://dslabpc10.epfl.ch/svn/src/immunity/deadlock/ASM/DimmunixASM/DimmunixASM.jar]
+and Dimmunix.jar from
+[https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixInstrumentation/Dimmunix.jar]
+
+= Download and Install =
 
 Unpack the ASM binaries into any folder.
 
