@@ -12,9 +12,8 @@ Download Dimmunix source code from
 [http://dimmunix.googlecode.com/files/dimmunix-src.zip]
 
 = Install Dimmunix =
-
- * Go to Dimmunix's root folder and 
+ * Unpack Dimmunix source code
+ * Go to the root folder of Dimmunix source code and 
   * compile Dimmunix by typing: *ant*
   * install Dimmunix by executing the following command as root: *sh install.sh*
-
  * Unpack the ASM binaries.
