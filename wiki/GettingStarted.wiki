@@ -28,4 +28,16 @@ Terminate the program with *Ctrl-C*.
 Run the test program with Dimmunix again.
 You notice that the program does not deadlock in the subsequent runs, if run with Dimmunix.
 
-You can find the deadlock history in $HOME/Dimmunix/Dimmunix.hist
+== Inspect the Deadlock History ==
+
+You can find the deadlock history in *$HOME/Dimmunix/Dimmunix.hist*.
+
+The deadlock history consists of deadlock signatures, one per line.
+
+The signature of a deadlock involving n threads has the following format:
+
+*deadlock_template=depth_1#outer_call_stack_1#inner_call_stack_1;...,depth_n#outer_call_stack_n#inner_call_stack_n*
+
+For instance, the deadlock from our test program has the following signature:
+
+deadlock_template=1#java.lang.Thread.run(Thread.java:595)#Test$1.run(Test.java:20),java.lang.Thread.run(Thread.java:595);1#java.lang.Thread.run(Thread.java:595)#Test$2.run(Test.java:31),java.lang.Thread.run(Thread.java:595)
