@@ -27,3 +27,5 @@ Terminate the program with *Ctrl-C*.
 
 Run the test program with Dimmunix again.
 You notice that the program does not deadlock in the subsequent runs, if run with Dimmunix.
+
+You can find the deadlock history in $HOME/Dimmunix/Dimmunix.hist
