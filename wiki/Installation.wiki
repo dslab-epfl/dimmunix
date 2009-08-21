@@ -1,19 +1,13 @@
 #summary Installing Dimmunix for Java
 
-= Download Dimmunix =
-
-Download the ASM instrumentation framework from 
-[http://download.forge.objectweb.org/asm/asm-3.2-bin.zip]
-
-Download Dimmunix Java agent from
-[http://dimmunix.googlecode.com/files/Dimmunix.jar]
-
-Download Dimmunix source code from 
-[http://dimmunix.googlecode.com/files/dimmunix-src.zip]
-
 = Install Dimmunix =
- * Unpack Dimmunix source code
- * Go to the root folder of Dimmunix source code and 
-  * compile Dimmunix by typing: *ant*
-  * install Dimmunix by executing the following command as root: *sh install.sh*
- * Unpack the ASM binaries.
+
+Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
+
+Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix Java agent]
+
+Download and unpack [http://dimmunix.googlecode.com/files/dimmunix-src.zip Dimmunix source code]
+
+Go to the root folder of Dimmunix source code and 
+ * compile Dimmunix by typing: *ant*
+ * install Dimmunix by executing the following command as root: *sh install.sh*
