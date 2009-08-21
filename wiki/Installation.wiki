@@ -9,7 +9,7 @@ Download Dimmunix Java agent from
 [https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixInstrumentation/Dimmunix.jar]
 
 Download Dimmunix source code from 
-[https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixASM]
+[http://dimmunix.googlecode.com/files/dimmunix-src.zip]
 
 = Install Dimmunix =
 
