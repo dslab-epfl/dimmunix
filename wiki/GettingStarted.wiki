@@ -16,7 +16,6 @@ Go into DimmunixASM folder and run the deadlocking program by executing:
 *java -cp bin Test*
 
 You notice that the test program deadlocks every time you run it.
-
 You can terminate the program by typing *Ctrl-C*.
 
 Now run the test program with Dimmunix by executing:
@@ -26,4 +25,5 @@ Now run the test program with Dimmunix by executing:
 You notice that the program deadlocks in the first run.
 Terminate the program with *Ctrl-C*.
 
-Notice that the program does not deadlock in the subsequent runs.
+Run the test program with Dimmunix again.
+You notice that the program does not deadlock in the subsequent runs, if run with Dimmunix.
