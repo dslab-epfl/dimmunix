@@ -1,0 +1,9 @@
+#summary Getting Started Using Dimmunix for Java
+
+= Quick Guide to Using Dimmunix for Java =
+
+This guide helps you get Dimmunix and use it to immunize Java programs against deadlock bugs.
+
+== Download and Install ==
+
+Follow the instructions from [Installation]
