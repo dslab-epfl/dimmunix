@@ -37,7 +37,7 @@ The deadlock history consists of deadlock signatures, one per line.
 The signature of a deadlock involving n threads has the following format:
 
 *deadlock_template=depth_1#outer_call_stack_1#inner_call_stack_1;...,depth_n#outer_call_stack_n#inner_call_stack_n*
-where outer_call_stack_i and inner_call_stack_i represent the call stacks thread i had when it acquired a lock involved in the deadlock and requested another lock involved in the deadlock.
+where outer_call_stack_i and inner_call_stack_i represent the call stacks thread i had when it acquired a lock involved in the deadlock and respectively requested another lock involved in the deadlock.
 
 For instance, the deadlock from our test program has the following signature:
 
