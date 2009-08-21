@@ -6,7 +6,7 @@ Download the ASM instrumentation framework from
 [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip]
 
 Download Dimmunix Java agent from
-[https://dslabpc10/svn/src/immunity/deadlock/ASM/trunk/DimmunixInstrumentation/Dimmunix.jar]
+[http://dimmunix.googlecode.com/files/Dimmunix.jar]
 
 Download Dimmunix source code from 
 [http://dimmunix.googlecode.com/files/dimmunix-src.zip]
