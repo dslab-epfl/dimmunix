@@ -8,6 +8,10 @@ Download and unpack [http://dimmunix.googlecode.com/files/dimmunix-src.zip Dimmu
 
 Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and 
  * compile Dimmunix by typing: 
-{{{ant}}}
+{{{
+ant
+}}}
  * install Dimmunix by executing the following command as root: 
-{{{sh install.sh}}}
+{{{
+sh install.sh
+}}}
