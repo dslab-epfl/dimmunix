@@ -7,3 +7,9 @@ This guide helps you get Dimmunix and use it to immunize Java programs against d
 == Download and Install ==
 
 Follow the instructions from [Installation]
+
+== Use Dimmunix on a Test Program ==
+
+The test program from DimmunixASM/src/Test.java deadlocks deterministically.
+Go into DimmunixASM folder and run the deadlocking program by executing
+ * java -cp bin Test
