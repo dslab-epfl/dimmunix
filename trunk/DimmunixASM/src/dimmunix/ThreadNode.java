@@ -15,7 +15,7 @@ public class ThreadNode extends Node {
 	Instance templateInstance = new Instance();
 	Instance yieldCause = new Instance();
 	
-	Vector<String> currentCallStack = new Vector<String>(10);	
+	CallStack currentCallStack = new CallStack(10);	
 	Vector<Iterator<LockGrant>> currentLockGrantsIterators = new Vector<Iterator<LockGrant>>(10);
 	Vector<Vector<Position>> currentMatchingPositions = new Vector<Vector<Position>>(10);
 	Vector<Position> currentPositionsToMatch = new Vector<Position>(10);

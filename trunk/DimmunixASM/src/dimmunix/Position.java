@@ -3,10 +3,10 @@ package dimmunix;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Position {
-	Vector<String> callStack;		
+	CallStack callStack;		
 	ConcurrentLinkedQueue<LockGrant> lockGrants;	
 	
-	public Position(Vector<String> callStack, boolean inHistory) {
+	public Position(CallStack callStack, boolean inHistory) {
 		this.callStack = callStack;
 		lockGrants = new ConcurrentLinkedQueue<LockGrant>();
 	}
@@ -88,7 +88,7 @@ public class Position {
 		return sb.toString();
 	}	
 	
-	int size() {
+	public int size() {
 		return callStack.size();
-	}
+	}	
 }

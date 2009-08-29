@@ -8,7 +8,7 @@ public class ResourceAllocationGraph {
 	
 	HashMap<Integer, Vector<LockNode>> locks = new HashMap<Integer, Vector<LockNode>>(512);
 	Vector<ThreadNode> threads = new Vector<ThreadNode>(1100);
-	HashMap<Vector<String>, Vector<Position>> positions = new HashMap<Vector<String>, Vector<Position>>(4096);			
+	HashMap<CallStack, Vector<Position>> positions = new HashMap<CallStack, Vector<Position>>(4096);			
 	
 	Vector<ThreadNode> requestingThreads = new Vector<ThreadNode>(500);
 	
@@ -41,7 +41,7 @@ public class ResourceAllocationGraph {
 		return l;
 	}
 	
-	Position getNewPosition(Vector<String> callStack) {
+	Position getNewPosition(CallStack callStack) {
 		Logger.nPositions++;
 		
 		if (preallocatedPositions.isEmpty()) {
@@ -113,7 +113,7 @@ public class ResourceAllocationGraph {
 		return l;
 	}
 	
-	Position findPosition(Vector<String> callStack, Vector<Position> group) {
+	Position findPosition(CallStack callStack, Vector<Position> group) {
 		for (int i = 0; i < group.size(); i++) {
 			if (group.get(i).callStack.equals(callStack))
 				return group.get(i);
@@ -121,7 +121,7 @@ public class ResourceAllocationGraph {
 		return null;
 	}
 	
-	Position getPosition(Vector<String> callStack) {
+	Position getPosition(CallStack callStack) {
 		Vector<Position> group = this.positions.get(callStack);
 		Position p;
 		if (group == null) {
@@ -129,7 +129,7 @@ public class ResourceAllocationGraph {
 				group = positions.get(callStack);
 				if (group == null) {
 					group = new Vector<Position>();
-					Vector<String> newCallStack = callStack.cloneVector();
+					CallStack newCallStack = callStack.cloneStack();
 					p = getNewPosition(newCallStack);
 					group.add(p);
 					positions.put(callStack, group);
@@ -142,7 +142,7 @@ public class ResourceAllocationGraph {
 			synchronized (positions) {
 				p = this.findPosition(callStack, group);
 				if (p == null) {
-					p = getNewPosition(callStack.cloneVector());					
+					p = getNewPosition(callStack.cloneStack());					
 					group.add(p);					
 					return p;					
 				}

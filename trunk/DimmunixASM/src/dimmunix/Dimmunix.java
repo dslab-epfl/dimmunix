@@ -172,7 +172,7 @@ public class Dimmunix {
 					int depth = Integer.parseInt(posTok.nextToken()); 
 					
 					StringTokenizer stackTok = new StringTokenizer(posTok.nextToken(), ",");
-					Vector<String> callStack = new Vector<String>(maxCallStackDepth);
+					CallStack callStack = new CallStack(maxCallStackDepth);
 					int d = 0;
 					while (stackTok.hasMoreTokens() && d++ < maxCallStackDepth)
 						callStack.add(stackTok.nextToken());
@@ -530,7 +530,7 @@ public class Dimmunix {
 		
 		t.currentCallStack.clear();	
 		for (int i = startCallStackIndex, depth = 0; i < trace.length && depth < maxCallStackDepth; i++, depth++)
-			t.currentCallStack.add(trace[i].toString());
+			t.currentCallStack.add(trace[i]);
 	}
 	
 	void getTemplatesContainingCurrentPosition(ThreadNode t, Position p) {
