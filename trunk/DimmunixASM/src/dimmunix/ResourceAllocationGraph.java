@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ResourceAllocationGraph {
 
-	Dimmunix dImmunix;
+	Dimmunix dimmunix;
 	
 	HashMap<Integer, Vector<LockNode>> locks = new HashMap<Integer, Vector<LockNode>>(512);
 	Vector<ThreadNode> threads = new Vector<ThreadNode>(1100);
@@ -15,11 +15,11 @@ public class ResourceAllocationGraph {
 	Vector<LockNode> preallocatedLocks = new Vector<LockNode>(512);
 	Vector<Position> preallocatedPositions = new Vector<Position>(4096);
 	
-	public ResourceAllocationGraph(Dimmunix dImmunix) {
-		this.dImmunix = dImmunix;
+	public ResourceAllocationGraph(Dimmunix dimmunix) {
+		this.dimmunix = dimmunix;
 		
 		for (int i = 0; i < threads.capacity(); i++)
-			threads.add(new ThreadNode(null, dImmunix));
+			threads.add(new ThreadNode(null, dimmunix));
 
 		for (int i = 0; i < preallocatedLocks.capacity(); i++)
 			preallocatedLocks.add(new LockNode(0));
@@ -50,7 +50,7 @@ public class ResourceAllocationGraph {
 		}
 		Position p = preallocatedPositions.remove();		
 		p.callStack = callStack;
-		dImmunix.refreshMatchingPositions(p);
+		dimmunix.refreshMatchingPositions(p);
 		return p;
 	}
 	
@@ -62,7 +62,7 @@ public class ResourceAllocationGraph {
 					int n = threads.size();
 					this.threads.setSize(tid+ 100);
 					for (int i = n; i < threads.size(); i++)
-						threads.set(i, new ThreadNode(null, dImmunix));						
+						threads.set(i, new ThreadNode(null, dimmunix));						
 				}
 			}
 		}
