@@ -25,10 +25,10 @@ public class ThreadNode extends Node {
 	boolean reqPosInHistory = false;
 	LockGrant currentLockGrant;
 		
-	Vector<LockGrant> preallocatedLockGrants = new Vector<LockGrant>(1000);
-	Vector<LockGrant> removedLockGrants = new Vector<LockGrant>(1000);
+	Vector<LockGrant> preallocatedLockGrants = new Vector<LockGrant>(100);
+	Vector<LockGrant> removedLockGrants = new Vector<LockGrant>(100);
 	
-	Vector<Event> lockOps = new Vector<Event>(1000);
+	Vector<Event> lockOps = new Vector<Event>(100);
 	
 	int nSyncs = 0;
 	
@@ -43,7 +43,7 @@ public class ThreadNode extends Node {
 		this.dImmunix = dImmunix;
 		
 		for (int i = 0; i < currentMatchingPositions.capacity(); i++) {
-			currentMatchingPositions.add(new Vector<Position>(100));
+			currentMatchingPositions.add(new Vector<Position>(10));
 		}
 	}
 

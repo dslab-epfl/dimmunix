@@ -7,7 +7,7 @@ public class ResourceAllocationGraph {
 	Dimmunix dimmunix;
 	
 	HashMap<Integer, Vector<LockNode>> locks = new HashMap<Integer, Vector<LockNode>>(512);
-	Vector<ThreadNode> threads = new Vector<ThreadNode>(1100);
+	Vector<ThreadNode> threads = new Vector<ThreadNode>(100);
 	HashMap<CallStack, Vector<Position>> positions = new HashMap<CallStack, Vector<Position>>(4096);			
 	
 	Vector<ThreadNode> requestingThreads = new Vector<ThreadNode>(500);
