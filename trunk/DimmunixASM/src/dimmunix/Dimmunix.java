@@ -223,7 +223,7 @@ public class Dimmunix {
 		if (templ.size() > t.currentMatchingPositions.size()) {
 			int n = templ.size()- t.currentMatchingPositions.size();
 			for (int i = 0; i < n; i++)
-				t.currentMatchingPositions.add(new Vector<Position>(100));
+				t.currentMatchingPositions.add(new Vector<Position>(10));
 		}
 		
 		for (int i = 0; i < templ.size(); i++) {
