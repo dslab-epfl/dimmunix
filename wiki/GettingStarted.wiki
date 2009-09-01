@@ -20,7 +20,7 @@ You can terminate the program by typing *Ctrl-C*.
 
 Now run the test program with Dimmunix by executing:
 {{{
-java -cp bin:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:<path do Dimmunix/bin> -javaagent:<path to Dimmunix.jar> Test
+java -cp bin:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:<path do DimmunixASM/bin> -javaagent:<path to Dimmunix.jar> Test
 }}}
 You notice that the program deadlocks in the first run.
 Terminate the program with *Ctrl-C*.
