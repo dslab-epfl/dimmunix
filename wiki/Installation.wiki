@@ -6,12 +6,7 @@ Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix Java agent]
 
 Download and unpack [http://dimmunix.googlecode.com/files/dimmunix-src.zip Dimmunix source code]
 
-Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and 
- * compile Dimmunix by typing: 
+Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and compile Dimmunix by typing: 
 {{{
 ant
-}}}
- * install Dimmunix by executing the following command as root: 
-{{{
-sh install.sh
 }}}
