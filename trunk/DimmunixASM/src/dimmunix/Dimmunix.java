@@ -539,10 +539,10 @@ public class Dimmunix {
 		t.currentIndicesInTemplates.clear();
 		for (Signature tmpl: history) {
 			for (int i = 0; i < tmpl.positions.size(); i++) {
-				Position posHist = tmpl.positions.get(i).value;
+				/*Position posHist = tmpl.positions.get(i).value;
 				if (posHist == p) {
 					
-				}
+				}*/
 				if (tmpl.positions.get(i).match(p)) {
 					
 					t.currentTemplates.add(tmpl);

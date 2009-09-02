@@ -3,7 +3,7 @@ package dimmunix;
 import java.util.HashSet;
 
 public class FPDetector {
-	Dimmunix dImmunix;
+	Dimmunix dimmunix;
 	
 	Vector<YieldEvent> currentYields = new Vector<YieldEvent>(10000);
 	HashSet<ThreadNode> avoidanceThreads = new HashSet<ThreadNode>(2048);
@@ -12,7 +12,7 @@ public class FPDetector {
 	public static int nFPs = 0;
 	
 	public FPDetector(Dimmunix dImmunix) {
-		this.dImmunix = dImmunix;
+		this.dimmunix = dImmunix;
 	}
 
 	void processEvent(Event evt) {
@@ -28,7 +28,7 @@ public class FPDetector {
 				nFPs++;
 			
 			SignaturePosition tpos = yEvt.matchingTemplate.positions.get(yEvt.avoidanceIndex());
-			if (yEvt.matchingTemplate.isDeadlockTemplate && tpos.depth < dImmunix.maxCallStackDepth && tpos.depth < tpos.value.size())
+			if (yEvt.matchingTemplate.isDeadlockTemplate && tpos.depth < dimmunix.maxCallStackDepth && tpos.depth < tpos.value.size())
 				currentYields.add(yEvt);			
 		}
 		else if (evt.type == EventType.RELEASE) {
@@ -38,24 +38,25 @@ public class FPDetector {
 			if (yEvt != null) {
 				SignaturePosition tpos = yEvt.matchingTemplate.positions.get(yEvt.avoidanceIndex());
 				
-				if (tpos.depth >= dImmunix.maxCallStackDepth || tpos.depth >= tpos.value.size()) {
-					currentYields.remove(yEvt);
-					return;
+				if (isTruePositive(yEvt, evt.time)) {
+					tpos.nTPs++;
+				}
+				else {
+					tpos.nFPs++;
 				}
 				
-				if (yEvt.yields.get(yEvt.avoidanceIndex()).position.size() == tpos.depth) {
-					if (isTruePositive(yEvt, evt.time)) {
-						tpos.nTPs++;
+				if (tpos.depth >= dimmunix.maxCallStackDepth || tpos.depth >= tpos.value.size()) {
+					if (tooManyFPs(yEvt.matchingTemplate)) {
+						dimmunix.history.remove(yEvt.matchingTemplate);
 					}
-					else {
-						tpos.nFPs++;
-					}
+				}
+				else {
 					if (tooManyFPs(tpos)) {					
 						tpos.incrementPrecision();
 						tpos.nFPs = 0;
 						tpos.nTPs = 0;
-					}					
-				}
+					}										
+				}				
 				
 				currentYields.remove(yEvt);				
 			}
@@ -64,14 +65,29 @@ public class FPDetector {
 	
 	boolean tooManyFPs(SignaturePosition tpos) {
 		int threshold_yields = 20;
-		int threshold_fps = 2;
+		int threshold_fps = 10;
 		return (tpos.nFPs+ tpos.nTPs >= threshold_yields) && (tpos.nFPs >= threshold_fps);
+	}
+	
+	boolean tooManyFPs(Signature sig) {
+		int threshold_yields = 100;
+		int threshold_fps = 100;
+		
+		int nyields = 0;
+		int nfps = 0;
+		
+		for (SignaturePosition spos: sig.positions) {
+			nyields = nyields+ spos.nFPs+ spos.nTPs;
+			nfps = nfps+ spos.nFPs;
+		}
+		
+		return nyields >= threshold_yields && nfps >= threshold_fps;
 	}
 	
 	YieldEvent endsAvoidance(Event rEvt) {
 		for (int i = 0; i < currentYields.size(); i++) {
 			YieldEvent yEvt = currentYields.get(i); 
-			if (yEvt.thread == rEvt.thread && (!dImmunix.ignoreLocksInAvoidance && yEvt.lock == rEvt.lock || dImmunix.ignoreLocksInAvoidance && yEvt.position == rEvt.position))
+			if (yEvt.thread == rEvt.thread && (!dimmunix.ignoreLocksInAvoidance && yEvt.lock == rEvt.lock || dimmunix.ignoreLocksInAvoidance && yEvt.position == rEvt.position))
 				return yEvt;
 		}
 		return null;

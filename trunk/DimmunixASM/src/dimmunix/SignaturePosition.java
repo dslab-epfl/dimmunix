@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class SignaturePosition {
 	Position value;
 	volatile int depth;
-	Dimmunix dImmunix;
+	Dimmunix dimmunix;
 	
 	Vector<Position> matchingPositions = new Vector<Position>();
 	ReentrantReadWriteLock rwLockMatching = new ReentrantReadWriteLock();
@@ -16,7 +16,7 @@ public class SignaturePosition {
 	public SignaturePosition(Position value, int depth, Dimmunix dImmunix) {
 		this.value = value;
 		this.depth = depth;
-		this.dImmunix = dImmunix;
+		this.dimmunix = dImmunix;
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class SignaturePosition {
 		
 		matchingPositions.clear();		
 		matchingPositions.add(this.value);
-		for (Signature tmpl: dImmunix.history) {
+		for (Signature tmpl: dimmunix.history) {
 			for (int i = 0; i < tmpl.size(); i++) {
 				Position pos = tmpl.positions.get(i).value;
 				if (!matchingPositions.containsRef(pos) && this.match(pos))
