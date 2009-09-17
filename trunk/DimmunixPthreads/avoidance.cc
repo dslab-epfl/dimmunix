@@ -8,7 +8,6 @@
 #include "util.h"
 #include "dlock.h"
 
-
 /* MAIN GLOBAL VARIABLE */
 static dlock::Avoidance gAvoid;
 
@@ -153,7 +152,7 @@ void Avoidance::acquire(Thread* thr, Mutex* mtx, int non_blocking) {
 	if (non_blocking)
 		return;
 
-	thr->enqueue_event(p, mtx, Event::REQUEST);
+	thr->enqueue_event(monitor.event_queue, p, mtx, Event::REQUEST);
 
 	while (yield_request(thr, mtx, p))
 		thr->yield_wait();
@@ -165,7 +164,7 @@ void Avoidance::acquired(Thread* thr, Mutex* mtx) {
 
 	mtx->pos = thr->lockPos; /* (#1) acqPos[l] = p */
 	mtx->owner = thr;
-	thr->enqueue_event(thr->lockPos, mtx, Event::ACQUIRED);
+	thr->enqueue_event(monitor.event_queue, thr->lockPos, mtx, Event::ACQUIRED);
 }
 
 void Avoidance::release(Thread* thr, Mutex* mtx) {
@@ -181,7 +180,7 @@ void Avoidance::release(Thread* thr, Mutex* mtx) {
 	mtx->pos = NULL; /* acqPos[l] = null */
 	mtx->owner = NULL;
 
-	thr->enqueue_event(p, mtx, Event::RELEASE);
+	thr->enqueue_event(monitor.event_queue, p, mtx, Event::RELEASE);
 
 	pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
 	remove_allowed(thr, mtx, p);
@@ -201,7 +200,7 @@ void Avoidance::cancel(Thread* thr, Mutex* mtx) {
 	if (!mtx->avoiding() || !enabled)
 		return;
 
-	thr->enqueue_event(thr->lockPos, mtx, Event::CANCEL);
+	thr->enqueue_event(monitor.event_queue, thr->lockPos, mtx, Event::CANCEL);
 
 	pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
 	remove_allowed(thr, mtx, thr->lockPos);
@@ -221,14 +220,14 @@ bool Avoidance::yield_request(Thread* thr, Mutex* mtx, Position* pos) {
 
 		insert_allowed(thr, mtx, pos); /* lockGrantees[p] += t */
 		pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
-		thr->enqueue_event(pos, mtx, Event::GRANT);
+		thr->enqueue_event(monitor.event_queue, pos, mtx, Event::GRANT);
 		return false; /* return OK */
 	} else {
 		/* foreach (t',p') in yieldCause[t] */
 		foreach(vector<YieldCause>::iterator, yc_it, thr->yield_cause)
 			yielders[*yc_it].push_back(thr); /* yielders[t',p'] += t */
 		pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
-		thr->enqueue_event(pos, mtx, Event::YIELD);
+		thr->enqueue_event(monitor.event_queue, pos, mtx, Event::YIELD);
 		return true; /* return YIELD */
 	}
 }

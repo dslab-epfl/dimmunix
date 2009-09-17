@@ -1,7 +1,7 @@
 #ifndef __ULOCK_H
 #define __ULOCK_H
 
-#include <pthread.h>
+//#include <pthread.h>
 
 typedef unsigned long ulong;
 

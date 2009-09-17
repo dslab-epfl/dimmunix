@@ -44,7 +44,7 @@ public:
 
 	Thread* alloc_thread() {
 		Thread* t = new Thread();
-		monitor.register_thread(t);
+		//monitor.register_thread(t);
 		return t;
 	}
 

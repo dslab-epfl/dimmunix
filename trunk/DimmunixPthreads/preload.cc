@@ -4,6 +4,8 @@
 #include "uthash.h"
 #include "util.h"
 #include <linux/unistd.h>
+#include "Dimmunix.h"
+#include "ulock.h"
 
 typedef struct {
 		int key; /* pthread_mutex_t* */
@@ -12,41 +14,26 @@ typedef struct {
 } aux_mutex_t;
 
 
-static int loading = 1;
-static pthread_key_t pkey;
-static pthread_rwlock_t hlock;
-static aux_mutex_t* aux_mutexes = NULL;
+pthread_key_t pkey;
+pthread_rwlock_t hlock;
+aux_mutex_t* aux_mutexes = NULL;
 
-static int (*real_pthread_mutex_lock) (pthread_mutex_t *__mutex) = NULL;
-static int (*real_pthread_mutex_trylock) (pthread_mutex_t *__mutex) = NULL;
-static int (*real_pthread_mutex_unlock) (pthread_mutex_t *__mutex) = NULL;
+static bool inDimmunix[100000];
+static Dimmunix dimmunix;
+volatile bool exiting;
+ULock initLock;
 
-void init() __attribute__ ((constructor));
-void done() __attribute__((destructor));
+int (*real_pthread_mutex_lock) (pthread_mutex_t *__mutex) = NULL;
+int (*real_pthread_mutex_trylock) (pthread_mutex_t *__mutex) = NULL;
+int (*real_pthread_mutex_unlock) (pthread_mutex_t *__mutex) = NULL;
 
 inline int gettid() {
 	return syscall(__NR_gettid);
 }
 
-/* init function */
-void init() {
-	real_pthread_mutex_lock = dlsym(RTLD_NEXT, "pthread_mutex_lock");
-	real_pthread_mutex_trylock = dlsym(RTLD_NEXT, "pthread_mutex_trylock");
-	real_pthread_mutex_unlock = dlsym(RTLD_NEXT, "pthread_mutex_unlock");
-	pthread_key_create(&pkey, NULL);
-	pthread_rwlock_init(&hlock, NULL);
-	loading = 0;
-}
-
-/* destructor */
-void done() {
-	pthread_rwlock_destroy(&hlock);
-	pthread_key_delete(pkey);
-}
-
 /* return current thread dlock_thread_t pointer */
 static dlock_thread_t* current_dlock_thread() {
-	dlock_thread_t* dt = pthread_getspecific(pkey);
+	dlock_thread_t* dt = (dlock_thread_t*)pthread_getspecific(pkey);
 	if (dt == NULL) {
 		dt = dlock_thread_create();
 		pthread_setspecific(pkey, dt);
@@ -57,20 +44,47 @@ static dlock_thread_t* current_dlock_thread() {
 /* #################################################################### */
 
 int pthread_mutex_lock(pthread_mutex_t *m) {
-	if (loading)
+	if (!dimmunix.initialized) {
+		initLock.lock();
+		if (!dimmunix.initialized)
+			dimmunix.init();
+		initLock.unlock();
 		return real_pthread_mutex_lock(m);
+	}
+	if (exiting)
+		return real_pthread_mutex_lock(m);
+
+	if (inDimmunix[gettid()])
+		return real_pthread_mutex_lock(m);
+	inDimmunix[gettid()] = true;
+
+	printf_nonblocking("lock\n");
 	dlock_thread_t* dt = current_dlock_thread();
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 0);
 	int r = real_pthread_mutex_lock(m);
 	if (r == 0)
 		dlock_acquired(dt, dm);
+
+	inDimmunix[gettid()] = false;
 	return r;
 }
 
 int pthread_mutex_trylock(pthread_mutex_t *m) {
-	if (loading)
+	if (!dimmunix.initialized) {
+		initLock.lock();
+		if (!dimmunix.initialized)
+			dimmunix.init();
+		initLock.unlock();
 		return real_pthread_mutex_trylock(m);
+	}
+	if (exiting)
+		return real_pthread_mutex_trylock(m);
+
+	if (inDimmunix[gettid()])
+		return real_pthread_mutex_trylock(m);
+	inDimmunix[gettid()] = true;
+
 	dlock_thread_t* dt = current_dlock_thread();
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 1);
@@ -79,17 +93,33 @@ int pthread_mutex_trylock(pthread_mutex_t *m) {
 		dlock_acquired(dt, dm);
 	else
 		dlock_mutex_contention(dm);
+
+	inDimmunix[gettid()] = false;
 	return r;
 }
 
 int pthread_mutex_unlock(pthread_mutex_t *m) {
-	if (loading)
+	if (!dimmunix.initialized) {
+		initLock.lock();
+		if (!dimmunix.initialized)
+			dimmunix.init();
+		initLock.unlock();
 		return real_pthread_mutex_unlock(m);
+	}
+	if (exiting)
+		return real_pthread_mutex_unlock(m);
+
+	if (inDimmunix[gettid()])
+		return real_pthread_mutex_unlock(m);
+	inDimmunix[gettid()] = true;
+
 	dlock_thread_t* dt = current_dlock_thread();
 	dlock_mutex_t* dm = dlock_mutex(m);
 	int r = real_pthread_mutex_trylock(m);
 	if (r == 0)
 		dlock_release(dt, dm);
+
+	inDimmunix[gettid()] = false;
 	return r;
 }
 
@@ -104,7 +134,7 @@ dlock_mutex_t* dlock_mutex(pthread_mutex_t* pmtx) {
 	if (am == NULL) {
 		/* not found, insert it */
 		pthread_rwlock_wrlock(&hlock);
-		am = malloc(sizeof(aux_mutex_t));
+		am = (aux_mutex_t*)malloc(sizeof(aux_mutex_t));
 		am->key = mkey;
 		am->dm = dlock_mutex_create(pmtx);
 		HASH_ADD_INT(aux_mutexes, key, am);
@@ -113,7 +143,7 @@ dlock_mutex_t* dlock_mutex(pthread_mutex_t* pmtx) {
 	return am->dm;
 }
 
-dlock_thread_t* dlock_thread(pthread_t* pthr) { }
+//dlock_thread_t* dlock_thread(pthread_t* pthr) { }
 
-void dlock_set_thread(pthread_t* pthr, dlock_thread_t* thr) { }
+//void dlock_set_thread(pthread_t* pthr, dlock_thread_t* thr) { }
 

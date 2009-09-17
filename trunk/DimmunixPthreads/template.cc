@@ -35,11 +35,13 @@ void TemplateFactory::save_templates(vector<Template> &templs, const char* fname
 	size_t n = templs.size();
 	if (n <= 0)
 		return;
+	printf("deadlock!\n");
 	ofstream ofile;
 	ofile.open(fname, ofstream::out | ofstream::trunc);
 	ofile << templs.size() << std::endl;
-	foreach(vector<Template>::iterator, it, templs)
+	foreach(vector<Template>::iterator, it, templs) {
 		ofile << *it;
+	}
 	ofile.close();
 }
 

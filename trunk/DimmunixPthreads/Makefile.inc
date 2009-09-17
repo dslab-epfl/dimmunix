@@ -11,6 +11,7 @@ LDFLAGS+=-L/usr/local/lib
 LDADD+=-lexecinfo -lstdc++
 
 SRCS+= \
+	Dimmunix.cc \
 	dlock.c \
 	util.c \
 	position.cc \

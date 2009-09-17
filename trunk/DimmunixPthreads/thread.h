@@ -30,8 +30,9 @@ public:
 	Thread();
 	~Thread();
 
-	void enqueue_event(Position* _p, Mutex* _m, Event::Type _type) {
-		_eq.enqueue(Event(_p, this, _m, _type));
+	void enqueue_event(EventQueue& q, Position* _p, Mutex* _m, Event::Type _type) {
+//		_eq.enqueue(Event(_p, this, _m, _type));
+		q.enqueue(Event(_p, this, _m, _type));
 	}
 
 	/* thread waits (blocks) if it has something in its yield_cause */

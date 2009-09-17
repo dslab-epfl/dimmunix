@@ -33,12 +33,12 @@ struct DetectionObserver {
 class Detection {
 public:
 	//typedef spsc_queue<Event> EventQueue;
-	typedef unordered_map<Thread*, EventQueue*, hash<Thread*> > EventQueueThreadMap;
+//	typedef unordered_map<Thread*, EventQueue*, hash<Thread*> > EventQueueThreadMap;
 
 	Detection();
 	~Detection();
 
-	void register_thread(Thread* _t) {
+/*	void register_thread(Thread* _t) {
 //		pthread_mutex_lock(&eventsLock);
 		eq_lock.lock();
 		event_queues[_t] = &_t->_eq;
@@ -52,9 +52,10 @@ public:
 		event_queues.erase(_t);
 //		pthread_mutex_unlock(&eventsLock);
 		eq_lock.unlock();
-	}
+	}*/
 
 	void add_observer(DetectionObserver* _obs) { observers.push_back(_obs); }
+	EventQueue event_queue;
 
 private:
 //	pthread_mutex_t eventsLock; /* event queue lock */
@@ -76,7 +77,7 @@ private:
 			(*it)->on_livelock(thr);
 	}
 
-	EventQueueThreadMap event_queues;
+//	EventQueueThreadMap event_queues;
 
 	/* monitor thread attributes and methods */
 	pthread_t monitor_tid;

@@ -77,44 +77,46 @@ void Detection::process_events() {
 	Event event, req_event;
 	vector<Event> ev_vec;
 	bool in_seq = false;
-	foreach(EventQueueThreadMap::iterator, it_eq, event_queues) {
-		size_t size = (*it_eq).second->length(); /* get queue length */
-		while ( (size) && (*it_eq).second->dequeue(event) ) {
-			--size;
-			if (!in_seq) {
-				if (event.type == Event::REQUEST) {
-					/* we save the request to compare its thread/mutex */
-					in_seq = true;
-					req_event = event;
-					ev_vec.push_back(event);
-				} else
-					process_event(event);
-			} else {
-				if (req_event.m == event.m) {
-					/* same mutex as previous request */
-					if (event.type == Event::RELEASE) {
-						in_seq = false;
-						ev_vec.clear(); /* discard this sequence of events because is just a lock/unlock */
-					} else
-						ev_vec.push_back(event);
-				} else {
-					/* thread or mutex are different, process ev_vec normally and current event */
+//	foreach(EventQueueThreadMap::iterator, it_eq, event_queues) {
+//	size_t size = (*it_eq).second->length(); /* get queue length */
+	size_t size = event_queue.length(); /* get queue length */
+	while ( (size) && event_queue.dequeue(event) ) {
+		//		while ( (size) && (*it_eq).second->dequeue(event) ) {
+		--size;
+		if (!in_seq) {
+			if (event.type == Event::REQUEST) {
+				/* we save the request to compare its thread/mutex */
+				in_seq = true;
+				req_event = event;
+				ev_vec.push_back(event);
+			} else
+				process_event(event);
+		} else {
+			if (req_event.m == event.m) {
+				/* same mutex as previous request */
+				if (event.type == Event::RELEASE) {
 					in_seq = false;
-					foreach(vector<Event>::iterator, it_ev, ev_vec)
-						process_event(*it_ev);
-					ev_vec.clear();
-					process_event(event);
-				}
+					ev_vec.clear(); /* discard this sequence of events because is just a lock/unlock */
+				} else
+					ev_vec.push_back(event);
+			} else {
+				/* thread or mutex are different, process ev_vec normally and current event */
+				in_seq = false;
+				foreach(vector<Event>::iterator, it_ev, ev_vec)
+				process_event(*it_ev);
+				ev_vec.clear();
+				process_event(event);
 			}
 		}
-		/* process any pending event */
-		if (in_seq) {
-			foreach(vector<Event>::iterator, it_ev, ev_vec)
-				process_event(*it_ev);
-			ev_vec.clear();
-			in_seq = false;
-		}
 	}
+	/* process any pending event */
+	if (in_seq) {
+		foreach(vector<Event>::iterator, it_ev, ev_vec)
+		process_event(*it_ev);
+		ev_vec.clear();
+		in_seq = false;
+	}
+	//	}
 
 	/* check for cycles */
 	check_for_cycles();
