@@ -1,4 +1,5 @@
-#summary Install Dimmunix for Java
+
+*Java*
 
 Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
 
@@ -11,6 +12,9 @@ Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and 
 ant
 }}}
 
-#summary Install Dimmunix for C/C++
+*C/C++*
 
-Checkout Dimmunix from 
+Checkout Dimmunix from https://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient, by running:
+{{{
+svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
+}}}
