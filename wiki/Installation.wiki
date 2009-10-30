@@ -22,3 +22,4 @@ To compile Dimmunix, go into its folder and run:
 {{{
 scons
 }}}
+This will create Dimmunix shared library libdimmunix.so , that can be linked to any C/C++ application.
