@@ -10,3 +10,7 @@ Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and 
 {{{
 ant
 }}}
+
+#summary Install Dimmunix for C/C++
+
+Checkout Dimmunix from 
