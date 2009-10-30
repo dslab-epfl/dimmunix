@@ -1,4 +1,3 @@
-
 *Java*
 
 Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
@@ -17,4 +16,9 @@ ant
 Checkout Dimmunix from https://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient, by running:
 {{{
 svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
+}}}
+
+To compile Dimmunix, go into its folder and run:
+{{{
+scons
 }}}
