@@ -50,6 +50,10 @@ To run an application with Dimmunix , simply instrument it with libdimmunix.so a
 LD_PRELOAD=<path to libdimmunix.so> app_binary
 }}}
 
+== Download and Install ==
+
+Follow the instructions from [Installation]
+
 == Use Dimmunix on a Test C/C++ program ==
 
 Go to Dimmunix's "test" folder.
