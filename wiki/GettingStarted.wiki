@@ -1,4 +1,3 @@
-#summary Getting Started Using Dimmunix for Java
 
 = Quick Guide to Using Dimmunix for Java =
 
@@ -44,3 +43,5 @@ For instance, the deadlock from our test program has the following signature:
 {{{
 deadlock_template=1#java.lang.Thread.run(Thread.java:595)#Test$1.run(Test.java:20),java.lang.Thread.run(Thread.java:595);1#java.lang.Thread.run(Thread.java:595)#Test$2.run(Test.java:31),java.lang.Thread.run(Thread.java:595)
 }}}
+
+= Quick Guide to Using Dimmunix for C/C++ =
