@@ -30,4 +30,4 @@ Compile Dimmunix by running
 cd DimmunixLDPreloadEfficient
 scons
 }}}
-This will create libdimmunix.so shared library (in folder DimmunixLDPreloadEfficient), that can be linked to any C/C++ application.
+This will create libdimmunix.so shared library (in folder DimmunixLDPreloadEfficient), that can be linked through LD_PRELOAD to any C/C++ application.
