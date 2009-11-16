@@ -2,9 +2,16 @@
 
 Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
 
-Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix Java agent]
+Check out Dimmunix Java agent by running
+{{{
+svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixInstrumentation
+}}}
 
-Download and unpack [http://dimmunix.googlecode.com/files/dimmunix-src.zip Dimmunix source code]
+Check out Dimmunix source code and Dimmunix tests by running
+{{{
+svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixASM
+svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixASMTTests
+}}}
 
 Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and compile Dimmunix by typing: 
 {{{
