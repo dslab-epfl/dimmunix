@@ -25,8 +25,9 @@ Checkout Dimmunix source code by running:
 svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
 }}}
 
-To compile Dimmunix, go into its folder and run:
+Compile Dimmunix by running
 {{{
+cd DimmunixLDPreloadEfficient
 scons
 }}}
-This will create Dimmunix shared library libdimmunix.so , that can be linked to any C/C++ application.
+This will create Dimmunix shared library DimmunixLDPreloadEfficient/libdimmunix.so, that can be linked to any C/C++ application.
