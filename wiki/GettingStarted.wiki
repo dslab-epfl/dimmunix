@@ -45,28 +45,23 @@ deadlock_template=1#java.lang.Thread.run(Thread.java:595)#Test$1.run(Test.java:2
 
 = Quick Guide to Using Dimmunix for C/C++ =
 
-To run an application with Dimmunix , simply instrument it with libdimmunix.so at load time, as follows:
-{{{
-LD_PRELOAD=<path to libdimmunix.so> app_binary
-}}}
-
 == Download and Install ==
 
 Follow the instructions from [Installation]
 
 == Use Dimmunix on a Test C/C++ program ==
 
-Go to Dimmunix's "test" folder.
-There, you can find a test program that has a deadlock bug.
+In DimmunixLDPreloadEfficient/test/test.cc, you can find a test program that deadlocks deterministically.
 
-Compile the test by running
+Compile the test program
 {{{
+cd DimmunixLDPreloadEfficient/test
 make
 }}}
 
-Run the test with Dimmunix by executing
+Run the test with Dimmunix
 {{{
 LD_PRELOAD=../libdimmunix.so ./test
 }}}
-In the first run, the test program will deadlock and Dimmunix will save the deadlock history in "dlock.history" file.
-In future runs , the test program will never deadlock again, if run with Dimmunix.
+In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "test/dlock.history" file.
+In future runs, the test program never deadlocks again.
