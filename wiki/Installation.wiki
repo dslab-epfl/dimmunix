@@ -10,7 +10,7 @@ svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixInstrumentation
 Check out Dimmunix source code and Dimmunix tests by running
 {{{
 svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixASM
-svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixASMTTests
+svn checkout https://dimmunix.googlecode.com/svn/trunk/DimmunixASMTests
 }}}
 
 Go to the root folder of Dimmunix source code (i.e., ../DimmunixASM folder) and compile Dimmunix by typing: 
