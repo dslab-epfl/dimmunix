@@ -17,6 +17,10 @@ ant
 
 *C/C++*
 
+ # Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
+{{{
+sudo apt-get install make gcc g++ scons
+}}}
  # Checkout Dimmunix source code
 {{{
 svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
