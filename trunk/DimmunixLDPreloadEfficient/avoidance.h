@@ -31,6 +31,10 @@ using namespace google::dense_hash_map;
 using namespace std::tr1;
 #endif
 
+extern int (*real_pthread_mutex_lock) (pthread_mutex_t *lock);
+extern int (*real_pthread_mutex_trylock) (pthread_mutex_t *lock);
+extern int (*real_pthread_mutex_unlock) (pthread_mutex_t *lock);
+
 namespace dlock {
 
 class LockGrant {
@@ -91,6 +95,9 @@ public:
 	/* stack matching depth for StackTrace hash_value */
 	int default_match_depth;
 
+	/* total yields done */
+	uint64_t yield_count;
+
 private:
 	/* global flag */
 
@@ -117,9 +124,6 @@ private:
 //	pthread_mutex_t positionLock;
 	ULock plock;
 	PositionCacheMap position_cache;
-
-	/* total yields done */
-	uint64_t yield_count;
 
 	bool yield_request(Thread* thr, Mutex* mtx, Position* pos);
 	void template_instance(Thread* thr, Mutex* mtx, Position* pos);

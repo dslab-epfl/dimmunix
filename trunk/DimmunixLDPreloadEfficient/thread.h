@@ -25,6 +25,10 @@
 
 using namespace std::tr1;
 
+extern int (*real_pthread_mutex_lock) (pthread_mutex_t *lock);
+extern int (*real_pthread_mutex_trylock) (pthread_mutex_t *lock);
+extern int (*real_pthread_mutex_unlock) (pthread_mutex_t *lock);
+
 namespace dlock {
 
 class Mutex;

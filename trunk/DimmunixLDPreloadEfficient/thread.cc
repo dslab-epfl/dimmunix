@@ -24,20 +24,20 @@ Thread::~Thread() {
 
 /* thread waits (blocks) if it has something in its yield_cause */
 void Thread::yield_wait() {
-	pthread_mutex_lock(&fYieldMtx);				/* native_lock(yieldLock[t]) */
+	real_pthread_mutex_lock(&fYieldMtx);				/* native_lock(yieldLock[t]) */
 	while (!yield_cause.empty() && !bypass_avoidance)	/* if yieldCause[t] != null */
 		pthread_cond_wait(&fYieldCond, &fYieldMtx);	/* yieldLock[t].wait */
-	pthread_mutex_unlock(&fYieldMtx);			/* native_unlock(yieldLock[t]) */
+	real_pthread_mutex_unlock(&fYieldMtx);			/* native_unlock(yieldLock[t]) */
 }
 
 /* if yield_cause is not empty wakes up this thread */
 void Thread::yield_notify() {
 	if (!yield_cause.empty()) {
-		pthread_mutex_lock(&fYieldMtx);		/* native_lock(yieldLock[t']) */
+//		real_pthread_mutex_lock(&fYieldMtx);		/* native_lock(yieldLock[t']) */
 		yield_cause.clear();			/* yieldCause[t'] = null */
 		pthread_cond_signal(&fYieldCond);	/* yieldLock[t'].notify */
 		DLOCK_DEBUGF("%p notifies\n", pthread_self());
-		pthread_mutex_unlock(&fYieldMtx);	/* native_unlock(yieldLock[t']) */
+//		real_pthread_mutex_unlock(&fYieldMtx);	/* native_unlock(yieldLock[t']) */
 	}
 }
 
