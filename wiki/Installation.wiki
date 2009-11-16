@@ -7,17 +7,14 @@ Check out Dimmunix Java agent
 svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixInstrumentation
 }}}
 
-Check out Dimmunix source code and Dimmunix tests
+Check out Dimmunix source code
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixASM
-svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixASMTests
 }}}
 
-Compile Dimmunix source code and tests
+Compile Dimmunix source code
 {{{
 cd DimmunixASM
-ant
-cd ../DimmunixASMTests
 ant
 }}}
 
