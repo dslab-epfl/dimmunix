@@ -51,17 +51,21 @@ Follow the instructions from [Installation]
 
 == Use Dimmunix on a Test C/C++ program ==
 
-In DimmunixLDPreloadEfficient/test/test.cc, you can find a test program that deadlocks deterministically.
+In DimmunixLDPreloadEfficient/test/test.cc, you can find a test program that deadlocks deterministically. To run it with Dimmunix, perform the following steps:
 
-Compile the test program
+ # Compile the test program
 {{{
 cd DimmunixLDPreloadEfficient/test
 make
 }}}
 
-Run the test with Dimmunix
+ # Run the test with Dimmunix
 {{{
 LD_PRELOAD=../libdimmunix.so ./test
 }}}
-In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "test/dlock.history" file.
-In future runs, the test program never deadlocks again.
+ In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "test/dlock.history" file. In future runs, the test program never deadlocks again.
+
+* Note: * 
+We tested C/C++ Dimmunix only for the following configuration:
+ * OS: Ubuntu 9.10
+ * glibc version: 2.10.1
