@@ -20,7 +20,7 @@ ant
 
 *C/C++*
 
-Checkout Dimmunix from https://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient, by running:
+Checkout Dimmunix source code by running:
 {{{
 svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
 }}}
