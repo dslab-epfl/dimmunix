@@ -20,12 +20,12 @@ ant
 
 *C/C++*
 
-Checkout Dimmunix source code by running:
+Checkout Dimmunix source code
 {{{
 svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
 }}}
 
-Compile Dimmunix by running
+Compile Dimmunix
 {{{
 cd DimmunixLDPreloadEfficient
 scons
