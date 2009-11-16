@@ -22,13 +22,14 @@ class Thread;
 
 class Mutex {
 public:
-	Mutex(pthread_mutex_t* _pmtx) : pos(0), owner(0), fAvoiding(true) {}
+	Mutex(pthread_mutex_t* _pmtx) : pos(0), owner(0), count(0), fAvoiding(true) {}
 
 	void avoid_toggle(const bool v) { fAvoiding = v; }
 	bool avoiding() const { return fAvoiding; }
 
 	Position* pos;			/* acqPos[l] */
 	Thread* owner;	/* current owner otherwise null */
+	volatile int count;
 private:
 	/* copy ctor */
 	Mutex(Mutex &m) {}

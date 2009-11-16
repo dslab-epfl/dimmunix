@@ -20,9 +20,9 @@ static pthread_rwlock_t hlock;
 static aux_mutex_t* aux_mutexes = NULL;
 
 // pthread func pointers
-static int (*real_pthread_mutex_lock) (pthread_mutex_t *__mutex) = NULL;
-static int (*real_pthread_mutex_trylock) (pthread_mutex_t *__mutex) = NULL;
-static int (*real_pthread_mutex_unlock) (pthread_mutex_t *__mutex) = NULL;
+int (*real_pthread_mutex_lock) (pthread_mutex_t *__mutex) = NULL;
+int (*real_pthread_mutex_trylock) (pthread_mutex_t *__mutex) = NULL;
+int (*real_pthread_mutex_unlock) (pthread_mutex_t *__mutex) = NULL;
 
 // called when the library exits
 void preload_done() __attribute__((destructor));
@@ -76,12 +76,12 @@ dlock_mutex_t* dlock_mutex(pthread_mutex_t* pmtx) {
 dlock_thread_t* dlock_thread(pthread_t* pthr) { return NULL; }
 void dlock_set_thread(pthread_t* pthr, dlock_thread_t* thr) {}
 
-static inline int isInvalidOrReentrantLockOp(int tid, pthread_mutex_t *m) {
-	return m == NULL || m->__data.__owner == tid || m->__data.__count > 0;
+static inline int isInvalidLockOp(int tid, pthread_mutex_t *m) {
+	return m == NULL;
 }
 
-static inline int isInvalidOrReentrantUnlockOp(int tid, pthread_mutex_t *m) {
-	return m == NULL || m->__data.__owner != tid || m->__data.__count > 1;
+static inline int isInvalidUnlockOp(int tid, pthread_mutex_t *m) {
+	return m == NULL;
 }
 
 inline int gettid() {
@@ -93,14 +93,14 @@ inline int gettid() {
 int pthread_mutex_lock(pthread_mutex_t *m) {
 	pthread_once(&initializer, preload_init);
 
-	if (isInvalidOrReentrantLockOp(gettid(), m))
+	if (isInvalidLockOp(gettid(), m))
 		return real_pthread_mutex_lock(m);
 
 	dlock_thread_t* dt = current_dlock_thread();
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 0);
 	int r = real_pthread_mutex_lock(m);
-	if (r == 0)
+//	if (r == 0)
 		dlock_acquired(dt, dm);
 	return r;
 }
@@ -108,24 +108,24 @@ int pthread_mutex_lock(pthread_mutex_t *m) {
 int pthread_mutex_trylock(pthread_mutex_t *m) {
 	pthread_once(&initializer, preload_init);
 
-	if (isInvalidOrReentrantLockOp(gettid(), m))
+	if (isInvalidLockOp(gettid(), m))
 		return real_pthread_mutex_trylock(m);
 
 	dlock_thread_t* dt = current_dlock_thread();
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 1);
 	int r = real_pthread_mutex_trylock(m);
-	if (r == 0)
+//	if (r == 0)
 		dlock_acquired(dt, dm);
-	else
-		dlock_mutex_contention(dm);
+//	else
+//		dlock_mutex_contention(dm);
 	return r;
 }
 
 int pthread_mutex_unlock(pthread_mutex_t *m) {
 	pthread_once(&initializer, preload_init);
 
-	if (isInvalidOrReentrantUnlockOp(gettid(), m))
+	if (isInvalidUnlockOp(gettid(), m))
 		return real_pthread_mutex_unlock(m);
 
 	dlock_thread_t* dt = current_dlock_thread();

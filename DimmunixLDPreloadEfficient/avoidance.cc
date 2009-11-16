@@ -22,6 +22,8 @@ dlock::Thread* dlock_thread_create() {
 void dlock_acquire(dlock::Thread* thr, dlock::Mutex* mtx, int non_blocking) {
 	if (thr->in_dimmunix)
 		return;
+	if (mtx->owner == thr)
+		return;
 	thr->in_dimmunix = true;
 	gAvoid.acquire(thr, mtx, non_blocking);
 	thr->in_dimmunix = false;
@@ -32,6 +34,7 @@ void dlock_acquired(dlock::Thread* thr, dlock::Mutex* mtx) {
 		return;
 	thr->in_dimmunix = true;
 	gAvoid.acquired(thr, mtx);
+	mtx->count++;
 	thr->in_dimmunix = false;
 }
 
@@ -40,6 +43,7 @@ void dlock_release(dlock::Thread* thr, dlock::Mutex* mtx) {
 		return;
 	thr->in_dimmunix = true;
 	gAvoid.release(thr, mtx);
+	mtx->count--;
 	thr->in_dimmunix = false;
 }
 
@@ -64,9 +68,9 @@ namespace dlock {
 Avoidance::Avoidance() : enable_dynamic_analysis(false),
 	default_stack_depth(DIMMU_MAX_STACK_DEPTH),
 	default_match_depth(DIMMU_MAX_STACK_DEPTH),
+	yield_count(0),
 	enabled(false),
-	disable_template_instance(false),
-	yield_count(0) {
+	disable_template_instance(false) {
 
 	pthread_mutex_init(&avoidLock, 0);
 	dlock_mutex_disable_avoidance(&avoidLock);
@@ -75,11 +79,11 @@ Avoidance::Avoidance() : enable_dynamic_analysis(false),
 //	allowed.resize(ALLOWED_CAPACITY);
 //	yielders.resize(YIELDERS_CAPACITY);
 
-	if (getenv("DIMMU_AVOIDANCE_DISABLE") != NULL) {
-		disable_template_instance = true;
+	char* tmp;
+	if ((tmp = getenv("DIMMU_AVOIDANCE_DISABLE")) != NULL) {
+		disable_template_instance = (bool)atoi(tmp);
 		DLOCK_DEBUGF("disabling avoidance\n");
 	}
-	char* tmp;
 	if ((tmp = getenv("DIMMU_STACK_DEPTH")) != NULL) {
 		default_stack_depth = atoi(tmp);
 		DLOCK_DEBUGF("stack depth set to %d\n", default_stack_depth);
@@ -107,6 +111,9 @@ Avoidance::Avoidance() : enable_dynamic_analysis(false),
 
 	/* only after all init we can enable */
 	enabled = true;
+	if ((tmp=getenv("DIMMU_ENABLE")) != NULL) {
+		enabled = (bool)atoi(tmp);
+	}
 
 	//for microbench
 	curSig = 0;
@@ -182,10 +189,10 @@ void Avoidance::generate_templates(int n) {
 				if (sigid == n)
 					goto end_loop;
 				t.clear();
-				//			p1 = vpos[rand() % vpos.size()];
-				//			while ((p2 = vpos[rand() % vpos.size()]) == p1) {}
-				p1 = getPos(i);
-				p2 = getPos(j);
+				p1 = vpos[rand() % vpos.size()];
+				while ((p2 = vpos[rand() % vpos.size()]) == p1) {}
+				//p1 = getPos(i);
+				//p2 = getPos(j);
 				t.positions.push_back( *p1 );
 				t.positions.push_back( *p2 );
 				history.push_back(t);
@@ -259,7 +266,7 @@ void Avoidance::release(Thread* thr, Mutex* mtx) {
 	mtx->owner = NULL;
 	thr->enqueue_event(p, mtx, Event::RELEASE);
 
-	pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
+	real_pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
 	remove_allowed(thr, mtx, p);
 	YieldCause yc(p, thr, mtx, 0);
 	if (yielders.find(yc) != yielders.end()) {
@@ -276,7 +283,7 @@ void Avoidance::release(Thread* thr, Mutex* mtx) {
 	if (enable_dynamic_analysis) {
 		thr->release(mtx, maxFPsPerSig);
 	}
-	pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
+	real_pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
 
 	thr->lockPos = NULL; /* (#1) reset thr lock position */
 
@@ -288,15 +295,15 @@ void Avoidance::cancel(Thread* thr, Mutex* mtx) {
 
 	thr->enqueue_event(thr->lockPos, mtx, Event::CANCEL);
 
-	pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
+	real_pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
 	remove_allowed(thr, mtx, thr->lockPos);
-	pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
+	real_pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
 
 	thr->lockPos = NULL; /* (#1) reset thr lock position */
 }
 
 bool Avoidance::yield_request(Thread* thr, Mutex* mtx, Position* pos) {
-	pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
+	real_pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */
 
 	template_instance(thr, mtx, pos); /* try to instance a template */
 
@@ -305,7 +312,7 @@ bool Avoidance::yield_request(Thread* thr, Mutex* mtx, Position* pos) {
 			thr->bypass_avoidance = false; /* we bypass only once */
 
 		insert_allowed(thr, mtx, pos); /* lockGrantees[p] += t */
-		pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
+		real_pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
 		thr->enqueue_event(pos, mtx, Event::GRANT);
 		return false; /* return OK */
 	} else {
@@ -314,7 +321,7 @@ bool Avoidance::yield_request(Thread* thr, Mutex* mtx, Position* pos) {
 			yielders[*yc_it].push_back(thr); /* yielders[t',p'] += t */
 		yield_count++;
 		thr->currentInstance.tmpl->nInst++;
-		pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
+		real_pthread_mutex_unlock(&avoidLock); /* native_unlock(avoidanceLock) */
 		//for microbench
 //		if (deltaInstUsec > 0) {
 //			check:
