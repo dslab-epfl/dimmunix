@@ -58,7 +58,6 @@ In DimmunixLDPreloadEfficient/test/test.cc, you can find a test program that dea
 cd DimmunixLDPreloadEfficient/test
 make
 }}}
-
  # Run the test with Dimmunix
 {{{
 LD_PRELOAD=../libdimmunix.so ./test
