@@ -41,7 +41,7 @@ public:
 	typedef unordered_map<Thread*, vector<Event>, hash<Thread*> > ThreadEventsMap;
 
 	struct eq_thread_item {
-		int key; /* Thread* */
+		int64_t key; /* Thread* */
 		EventQueue* q;
 		UT_hash_handle hh;
 	};
@@ -55,7 +55,7 @@ public:
 //		event_queues[_t] = &_t->_eq;
 
 		struct eq_thread_item *item = (struct eq_thread_item*) malloc(sizeof(struct eq_thread_item));
-		item->key = (int)_t;
+		item->key = (int64_t)_t;
 		item->q = &_t->_eq;
 		HASH_ADD_INT(event_queues, key, item);
 
