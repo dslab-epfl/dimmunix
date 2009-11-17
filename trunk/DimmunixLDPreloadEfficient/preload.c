@@ -100,7 +100,7 @@ int pthread_mutex_lock(pthread_mutex_t *m) {
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 0);
 	int r = real_pthread_mutex_lock(m);
-//	if (r == 0)
+	if (r == 0)
 		dlock_acquired(dt, dm);
 	return r;
 }
@@ -115,10 +115,10 @@ int pthread_mutex_trylock(pthread_mutex_t *m) {
 	dlock_mutex_t* dm = dlock_mutex(m);
 	dlock_acquire(dt, dm, 1);
 	int r = real_pthread_mutex_trylock(m);
-//	if (r == 0)
+	if (r == 0)
 		dlock_acquired(dt, dm);
-//	else
-//		dlock_mutex_contention(dm);
+	else
+		dlock_mutex_contention(dm);
 	return r;
 }
 
