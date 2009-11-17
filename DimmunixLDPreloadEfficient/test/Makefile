@@ -6,5 +6,5 @@ MAIN = test
 all:    $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(MAIN)
 clean:
-	rm -f *.o *~ $(MAIN) microbenchmark
+	rm -f *.o *~ $(MAIN) 
 
