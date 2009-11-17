@@ -34,7 +34,8 @@ ostream& operator << (ostream& os, const StackTrace& st) {
 	Dl_info info;
 	if (st.stack.size() > 0)
 		for (size_t i = 0; i < st.stack.size(); ++i) {
-			if (dladdr(st.stack[i], &info) && info.dli_saddr != 0) /* saddr can be 0x0 even if returns true */
+			//if (dladdr(st.stack[i], &info) && info.dli_saddr != 0) /* saddr can be 0x0 even if returns true */
+			if (dladdr(st.stack[i], &info))
 				os << info.dli_fname << ' ' << (uintptr_t)st.stack[i] - (uintptr_t)info.dli_fbase;
 			else
 				os << "_ 0";

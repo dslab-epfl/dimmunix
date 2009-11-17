@@ -15,7 +15,6 @@ void* f(void* args) {
 	pthread_mutex_lock(&mutex1);
 	sleep(1);
 	pthread_mutex_lock(&mutex2);
-	sleep(1);
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_unlock(&mutex1);
 }
@@ -24,7 +23,6 @@ void* g(void* args) {
 	pthread_mutex_lock(&mutex2);
 	sleep(1);
 	pthread_mutex_lock(&mutex1);
-	sleep(1);
 	pthread_mutex_unlock(&mutex1);
 	pthread_mutex_unlock(&mutex2);
 }
@@ -42,5 +40,4 @@ int main() {
 
 	pthread_join(t1, NULL);
 	pthread_join(t2, NULL);
-	sleep(2);
 }

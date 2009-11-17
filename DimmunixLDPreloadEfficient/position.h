@@ -32,7 +32,7 @@ using namespace std;
 
 /* adjusting this value impacts directly on template matching */
 #ifndef DIMMU_MAX_STACK_DEPTH
-#define DIMMU_MAX_STACK_DEPTH 14
+#define DIMMU_MAX_STACK_DEPTH 10
 #endif
 
 /* this value controls how many frames we should discard,
@@ -52,7 +52,7 @@ class StackTrace {
 	friend istream& operator>> (istream& is, StackTrace& st);
 public:
 	/* default ctor */
-	StackTrace() : match_depth(DIMMU_MAX_STACK_DEPTH - DIMMU_STACK_SKIP_BOTTOM) {}
+	StackTrace() : match_depth(DIMMU_MAX_STACK_DEPTH) {}
 
 	/* copy ctor */
 	StackTrace(const StackTrace &st) : stack(st.stack), match_depth(st.match_depth) {}
@@ -67,10 +67,11 @@ public:
 	}
 
 	void capture(const int depth = DIMMU_MAX_STACK_DEPTH) {
-		stack.resize(depth);
-		int n = backtrace(&stack[0], depth);
-		n -= DIMMU_STACK_SKIP_BOTTOM; /* remove extra frames (e.g. acquire) */
+		stack.resize(depth+ DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP);
+		int n = backtrace(&stack[0], depth+ DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP);
+		n -= DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP; /* remove extra frames (e.g. acquire) */
 		stack.erase(stack.begin(), stack.begin() + DIMMU_STACK_SKIP_BOTTOM);
+		stack.erase(stack.end()- DIMMU_STACK_SKIP_TOP, stack.end());
 		if (depth > n) { /* if we asked more than needed */
 			//n -= DIMMU_STACK_SKIP_TOP; /* remove extra frames (e.g. clone) */
 			stack.resize(n);
