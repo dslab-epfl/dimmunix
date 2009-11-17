@@ -7,24 +7,35 @@
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdio.h>
 
 pthread_mutex_t mutex1;
 pthread_mutex_t mutex2;
 
-void* f(void* args) {
+void f1() {
 	pthread_mutex_lock(&mutex1);
 	sleep(1);
 	pthread_mutex_lock(&mutex2);
 	pthread_mutex_unlock(&mutex2);
 	pthread_mutex_unlock(&mutex1);
+	printf("thread 1 done\n");
+}
+
+void g1() {
+	pthread_mutex_lock(&mutex2);
+	sleep(1);
+	pthread_mutex_lock(&mutex1);
+	pthread_mutex_unlock(&mutex1);
+	pthread_mutex_unlock(&mutex2);
+	printf("thread 2 done\n");
+}
+
+void* f(void* args) {
+	f1();
 }
 
 void* g(void* args) {
-	pthread_mutex_lock(&mutex2);
-	sleep(1);
-	pthread_mutex_lock(&mutex1);
-	pthread_mutex_unlock(&mutex1);
-	pthread_mutex_unlock(&mutex2);
+	g1();
 }
 
 int main() {
