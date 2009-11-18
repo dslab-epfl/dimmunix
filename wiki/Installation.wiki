@@ -23,7 +23,7 @@ sudo apt-get install make gcc g++ scons
 }}}
  # Checkout Dimmunix source code
 {{{
-svn co http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
+svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
 }}}
  # Compile Dimmunix
 {{{
