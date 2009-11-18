@@ -98,7 +98,7 @@ LD_PRELOAD=`pwd`/../../../libdimmunix.so ./deadlock
  In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "DimmunixLDPreloadEfficient/test/sqlite/deadlock_test/dlock.history" file. In future runs, the test program never deadlocks again.
 
 * Note: * 
-We tested C/C++ Dimmunix only on the following operating systems:
+We tested C/C++ Dimmunix on the following operating systems:
  * Ubuntu 9.10 32 bit
  * Ubuntu 9.04 32 bit
  * Ubuntu 8.10 32 bit
