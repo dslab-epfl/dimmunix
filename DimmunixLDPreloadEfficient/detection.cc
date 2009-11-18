@@ -295,6 +295,7 @@ void Detection::check_for_cycles() {
 		TemplateFactory::save_templates(history, HISTORY_FNAME); /* save history */
 
 		monitor_run = false; /* stop monitor thread */
+		cerr << "deadlock found and saved to dlock.history\n";
 		raise(abort_signal); /* signal the process */
 	} else if ((ithr = rag.has_allcycles(req_threads, cycle) >= 0)) {
 		DLOCK_DEBUGF("livelock found\n");
