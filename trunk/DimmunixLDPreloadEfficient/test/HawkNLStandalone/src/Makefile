@@ -82,6 +82,6 @@ uninstall:
 
 .PHONY : clean
 clean:
-	rm -f $(OBJECTS)  $(TARGET) *.bc 
+	rm -f $(OBJECTS)  $(TARGET) 
 
 
