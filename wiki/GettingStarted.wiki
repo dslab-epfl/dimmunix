@@ -62,9 +62,44 @@ make
 {{{
 LD_PRELOAD=../libdimmunix.so ./test
 }}}
- In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "test/dlock.history" file. In future runs, the test program never deadlocks again.
+ In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "DimmunixLDPreloadEfficient/test/dlock.history" file. In future runs, the test program never deadlocks again.
+
+== Use Dimmunix on the HawkNL test ==
+
+In DimmunixLDPreloadEfficient/test/HawkNLStandalone/src/deadlock3.c, you can find a test program that deadlocks deterministically. To run it with Dimmunix, perform the following steps:
+
+ # Compile the test program
+{{{
+cd DimmunixLDPreloadEfficient/test/HawkNLStandalone/src
+make
+}}}
+ # Run the test with Dimmunix
+{{{
+LD_PRELOAD=`pwd`/../../libdimmunix.so ./deadlock3
+}}}
+ In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "DimmunixLDPreloadEfficient/test/HawkNLStandalone/src/dlock.history" file. In future runs, the test program never deadlocks again.
+
+== Use Dimmunix on the SQLite test ==
+
+In DimmunixLDPreloadEfficient/test/sqlite/deadlock_test/deadlock.c, you can find a test program that deadlocks deterministically. To run it with Dimmunix, perform the following steps:
+
+ # Compile the test program
+{{{
+cd DimmunixLDPreloadEfficient/test/sqlite
+./configure --enable-threadsafe
+make
+cd deadlock_test
+make
+}}}
+ # Run the test with Dimmunix
+{{{
+LD_PRELOAD=`pwd`/../../libdimmunix.so ./deadlock
+}}}
+ In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "DimmunixLDPreloadEfficient/test/sqlite/deadlock_test/dlock.history" file. In future runs, the test program never deadlocks again.
 
 * Note: * 
-We tested C/C++ Dimmunix only for the following configuration:
- * OS: Ubuntu 9.10
- * glibc version: 2.10.1
+We tested C/C++ Dimmunix only on the following operating systems:
+ * Ubuntu 9.10 32 bit
+ * Ubuntu 9.04 32 bit
+ * Ubuntu 8.10 32 bit
+ * Ubuntu 9.10 64 bit
