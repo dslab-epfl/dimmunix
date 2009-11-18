@@ -49,7 +49,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <errno.h>
-#include <linux/unistd.h>
+//#include <linux/unistd.h>
 
 /*
 ** If we are to be thread-safe, include the pthreads header and define
@@ -1684,9 +1684,9 @@ static pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
 #endif
 
-inline int gettid() {
-	return syscall(__NR_gettid);
-}
+//inline int gettid() {
+//	return syscall(__NR_gettid);
+//}
 
 /*
 ** The following pair of routine implement mutual exclusion for
@@ -1700,18 +1700,18 @@ inline int gettid() {
 */
 void sqlite3UnixEnterMutex(){
 #ifdef SQLITE_UNIX_THREADS
-	printf("%d waiting for m1\n", gettid());
+//	printf("%d waiting for m1\n", gettid());
   pthread_mutex_lock(&mutex1);
-    printf("%d holding m1\n", gettid());
+//    printf("%d holding m1\n", gettid());
   if( inMutex==0 ){
-	  printf("%d waiting for m2\n", gettid());
+//	  printf("%d waiting for m2\n", gettid());
     pthread_mutex_lock(&mutex2);
     mutexOwner = pthread_self();
   }
   pthread_mutex_unlock(&mutex1);
 
 #endif
-  printf("%d holding m2\n", gettid());
+//  printf("%d holding m2\n", gettid());
   sleep(2);
   inMutex++;
 }
