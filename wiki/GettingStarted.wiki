@@ -93,7 +93,7 @@ make
 }}}
  # Run the test with Dimmunix
 {{{
-LD_PRELOAD=`pwd`/../../libdimmunix.so ./deadlock
+LD_PRELOAD=`pwd`/../../../libdimmunix.so ./deadlock
 }}}
  In the first run, the test program deadlocks and Dimmunix saves the deadlock history in "DimmunixLDPreloadEfficient/test/sqlite/deadlock_test/dlock.history" file. In future runs, the test program never deadlocks again.
 
