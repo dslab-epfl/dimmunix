@@ -103,3 +103,5 @@ We tested C/C++ Dimmunix only on the following operating systems:
  * Ubuntu 9.04 32 bit
  * Ubuntu 8.10 32 bit
  * Ubuntu 9.10 64 bit
+ * Fedora 11 32 bit
+ * Fedora 9 32 bit
