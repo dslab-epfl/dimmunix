@@ -49,7 +49,7 @@ deadlock_template=1#java.lang.Thread.run(Thread.java:595)#Test$1.run(Test.java:2
 
 Follow the instructions from [Installation]
 
-== Use Dimmunix on a test C/C++ program ==
+== Use Dimmunix on a test C program ==
 
 In DimmunixLDPreloadEfficient/test/test.cc, you can find a test program that deadlocks deterministically. To run it with Dimmunix, perform the following steps:
 
