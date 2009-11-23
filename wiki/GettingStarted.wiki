@@ -11,6 +11,7 @@ Follow the instructions from [Installation]
 The test programs from dimmunix-java/test folder deadlock deterministically.
 
 To use Dimmunix on a test program, do the following steps:
+
 1. Compile the tests
 {{{
 cd dimmunix-java/test
