@@ -5,7 +5,7 @@
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src dimmunix-java-src
 }}}
- # Compile Dimmunix source code
+ # Compile Dimmunix 
 {{{
 cd dimmunix-java-src/Dimmunix
 ant
@@ -21,11 +21,11 @@ sudo apt-get install make gcc g++ scons
 }}}
  # Checkout Dimmunix source code
 {{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixLDPreloadEfficient
+svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/src dimmunix-pthreads-src
 }}}
  # Compile Dimmunix
 {{{
-cd DimmunixLDPreloadEfficient
+cd dimmunix-pthreads-src/
 scons
 }}}
- This will create libdimmunix.so shared library (in folder DimmunixLDPreloadEfficient), that can be linked through LD_PRELOAD to any C/C++ application.
+ This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ application.
