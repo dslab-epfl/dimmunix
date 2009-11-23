@@ -1,0 +1,87 @@
+CC = gcc
+AR = ar cru
+RANLIB = ranlib
+MAJOR_VERSION = 1
+MINOR_VERSION = 6
+PATCH_LEVEL = 1
+VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
+LIBDIR = /usr/lib
+INCDIR = /usr/include
+INCLUDE = -I../include
+OUTPUT = libNL.so.$(VERSION)
+LIBNAME = NL
+STATIC = libNL.a
+#OPTFLAGS = -funroll-all-loops -ffast-math -fno-omit-frame-pointer -O2 -D_REENTRANT -g
+CFLAGS = -Wall -g $(INCLUDE) $(OPTFLAGS)
+#LIBFLAGS = -shared -Wl,-soname,NL.so.$(MAJOR_VERSION).$(MINOR_VERSION) -lpthread -export-dynamic
+#LIBFLAGS = -Wl,-soname,NL.so.$(MAJOR_VERSION).$(MINOR_VERSION) -lpthread -export-dynamic
+LIBFLAGS = -lpthread -export-dynamic
+OBJECTS = crc.o errorstr.o nl.o sock.o group.o loopback.o err.o thread.o mutex.o condition.o nltime.o deadlock3.o 
+OBJECTS4 = crc.o errorstr.o nl.o sock.o group.o loopback.o err.o thread.o mutex.o condition.o nltime.o deadlock4.o
+TARGET=deadlock3
+TARGET4= deadlock4
+
+KLEE_ARGS = --simplify-sym-indices --write-cvcs --write-cov --output-module --max-memory=1000 --disable-inlining --optimize --use-forked-stp --use-cex-cache --with-libc --allow-external-sym-calls --use-call-paths=false --fork-on-schedule=false --scheduler-preemption-bound=0 --with-file-model=release --init-env 
+
+KLEE_ARGS4 = --simplify-sym-indices --write-cvcs --write-cov --output-module --max-memory=1000 --disable-inlining --optimize --use-forked-stp --use-cex-cache --with-libc --allow-external-sym-calls --use-call-paths=false --fork-on-schedule=true --scheduler-preemption-bound=2 --with-file-model=release --init-env 
+
+%.o : %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+all: $(OBJECTS) $(OBJECTS4)
+	$(CC) $(LIBFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CC) $(LIBFLAGS) -o $(TARGET4) $(OBJECTS4)
+
+
+#$(AR) $(STATIC) $(OBJECTS)
+#$(RANLIB) $(STATIC)
+
+run:
+	klee $(KLEE_ARGS) $(TARGET).bc
+
+run4:
+	klee $(KLEE_ARGS4) $(TARGET4).bc --sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 
+
+# nl.o : nlinternal.h nl.c
+# sock.o : nlinternal.h sock.h sock.c
+# errorstr.o : nlinternal.h errorstr.c
+# crc.o : ../include/nl.h crc.c
+# group.o : nlinternal.h group.c
+# loopback.o : nlinternal.h loopback.h loopback.c
+# err.o : nlinternal.h err.c
+# thread.o : nlinternal.h thread.c
+# mutex.o : nlinternal.h mutex.c
+# condition.0 : nlinternal.h condition.c
+#nltime.o : nlinternal.h nltime.c
+
+install:
+	cp $(OUTPUT) $(LIBDIR)
+	cp $(STATIC) $(LIBDIR)
+	chmod 755 $(LIBDIR)/$(OUTPUT)
+	ln -s $(LIBDIR)/$(OUTPUT) $(LIBDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	ln -s $(LIBDIR)/$(OUTPUT) $(LIBDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION)
+	ln -s $(LIBDIR)/$(OUTPUT) $(LIBDIR)/lib$(LIBNAME).so
+	cp ../include/nl.h $(INCDIR)/nl.h
+	chmod 644 $(INCDIR)/nl.h
+	@echo ""
+	@echo "*************************************************"
+	@echo "* Installed HawkNL.                             *"
+	@echo "* Remember to run /sbin/ldconfig before using   *"
+	@echo "* the library, you may also want to check that  *"
+	@echo "* $(LIBDIR) is included in /etc/ld.so.conf      *"
+	@echo "* You must be root to run ldconfig.             *"
+	@echo "*************************************************"
+
+uninstall:
+	rm -f $(LIBDIR)/$(OUTPUT) $(LIBDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	rm -f $(LIBDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	rm -f $(LIBDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION)
+	rm -f $(LIBDIR)/lib$(LIBNAME).so
+	rm -f $(LIBDIR)/$(STATIC)
+	rm -f $(INCDIR)/nl.h
+
+.PHONY : clean
+clean:
+	rm $(OBJECTS)  $(TARGET) *.bc 
+
+
