@@ -6,25 +6,26 @@ This guide helps you get Dimmunix and use it to immunize Java programs against d
 
 Follow the instructions from [Installation]
 
-== Use Dimmunix on a Test  Java Program ==
+== Use Dimmunix on test Java programs ==
 
-The test program from DimmunixASM/src/Test.java deadlocks deterministically.
-Go into DimmunixASM folder and run the deadlocking program by executing: 
+The test programs from dimmunix-java/test folder deadlock deterministically.
+
+To use Dimmunix on a test program, do the following steps:
+1. Compile the tests
 {{{
-java -cp bin Test
+cd dimmunix-java/test
+ant
 }}}
-You notice that the test program deadlocks every time you run it.
-You can terminate the program by typing *Ctrl-C*.
-
-Now run the test program with Dimmunix by executing:
+2. Run the test from Test.java
 {{{
-java -cp bin:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:<path do DimmunixASM/bin> -javaagent:<path to Dimmunix.jar> Test
+java Test
 }}}
-You notice that the program deadlocks in the first run.
-Terminate the program with *Ctrl-C*.
-
-Run the test program with Dimmunix again.
-You notice that the program does not deadlock in the subsequent runs, if run with Dimmunix.
+ You notice that the test deadlocks every time you run it. You can terminate it by typing *Ctrl-C*.
+3. Now run the test program with Dimmunix
+{{{
+java -cp bin:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:../src/Dimmunix/bin -javaagent:../src/DimmunixInstrumentation/DimmunixAgent.jar Test
+}}}
+ You notice that the program deadlocks in the first run. Terminate the program with *Ctrl-C*. Run the test program with Dimmunix again. You notice that the program does not deadlock in the subsequent runs.
 
 == Inspect the Deadlock History ==
 
@@ -34,22 +35,17 @@ The deadlock history consists of deadlock signatures, one per line.
 
 The signature of a deadlock involving n threads has the following format:
 {{{
-deadlock_template=depth_1#outer_call_stack_1#inner_call_stack_1;...,depth_n#outer_call_stack_n#inner_call_stack_n
+deadlock_template=depth_1#call_stack_1;...,depth_n#call_stack_n
 }}}
-where outer_call_stack_i and inner_call_stack_i represent the call stacks thread i had when it acquired a lock involved in the deadlock and respectively requested another lock involved in the deadlock.
+ where call_stack_i represents the call stack thread i had when it acquired a lock involved in the deadlock.
 
-For instance, the deadlock from our test program has the following signature:
-{{{
-deadlock_template=1#java.lang.Thread.run(Thread.java:595)#Test$1.run(Test.java:20),java.lang.Thread.run(Thread.java:595);1#java.lang.Thread.run(Thread.java:595)#Test$2.run(Test.java:31),java.lang.Thread.run(Thread.java:595)
-}}}
-
-= Quick Guide to Using Dimmunix for C/C++ =
+= Quick Guide to Using Dimmunix for PThreads =
 
 == Download and Install ==
 
 Follow the instructions from [Installation]
 
-== Use Dimmunix on test programs ==
+== Use Dimmunix on test C/C++ programs ==
 
 In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
 
@@ -58,7 +54,8 @@ To compile and run the tests, run
 cd dimmunix-pthreads-test
 sh ./run_tests
 }}}
- In the first run, each test deadlocks and Dimmunix saves the deadlock history in the folder containing the test. In future runs, the test never deadlocks again.
+
+In the first run, each test deadlocks and Dimmunix saves the deadlock history in the folder containing the test. In future runs, the test never deadlocks again.
 
 = Notes: =
 
