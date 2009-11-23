@@ -51,13 +51,13 @@ Follow the instructions from [Installation]
 
 == Use Dimmunix on test programs ==
 
- 1. Checkout the tests
+1. Checkout the tests
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/test dimmunix-pthreads-test
 }}} 
  In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
 
- 2. Compile and run the tests
+2. Compile and run the tests
 {{{
 cd dimmunix-pthreads-test
 sh ./run_tests
