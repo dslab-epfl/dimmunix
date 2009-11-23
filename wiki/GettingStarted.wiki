@@ -51,7 +51,7 @@ Follow the instructions from [Installation]
 
 == Use Dimmunix on test programs ==
 
- 1. Checkout the tests. 
+ 1. Checkout the tests
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/test dimmunix-pthreads-test
 }}} 
