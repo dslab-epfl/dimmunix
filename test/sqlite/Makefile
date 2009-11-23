@@ -44,11 +44,11 @@ LIBTCL =
 
 # Compiler options needed for programs that use the readline() library.
 #
-READLINE_FLAGS = -DHAVE_READLINE=0 
+READLINE_FLAGS = -DHAVE_READLINE=1 -I/usr/include/readline
 
 # The library that programs using readline() must link against.
 #
-LIBREADLINE = 
+LIBREADLINE = -lreadline -lreadline 
 
 # Should the database engine be compiled threadsafe
 #
@@ -112,7 +112,7 @@ LTLINK = $(LIBTOOL) --mode=link $(TCC)
 LTINSTALL = $(LIBTOOL) --mode=install $(INSTALL)
 
 # nawk compatible awk.
-NAWK = mawk
+NAWK = gawk
 
 # You should not have to change anything below this line
 ###############################################################################
