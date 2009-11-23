@@ -1,17 +1,13 @@
 *Java*
 
  # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
- # Check out Dimmunix Java agent
-{{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixInstrumentation
-}}}
  # Check out Dimmunix source code
 {{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/DimmunixASM
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src
 }}}
  # Compile Dimmunix source code
 {{{
-cd DimmunixASM
+cd java/src/Dimmunix
 ant
 }}}
 
