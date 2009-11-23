@@ -1,0 +1,14 @@
+1
+2
+2778020529 5 5
+_pthread_create 5677 671974157
+_pthread_mutex_getprioceiling 124 671954332
+sqlite3UnixEnterMutex 18 134541394
+work1 23 134540935
+_pthread_attr_destroy 202 671968346
+2778198538 5 5
+_pthread_create 5677 671974157
+_pthread_mutex_getprioceiling 124 671954332
+sqlite3UnixEnterMutex 55 134541431
+work0 11 134540875
+_pthread_attr_destroy 202 671968346
