@@ -66,10 +66,11 @@ sh ./run_tests
 
 = Notes: =
 
-# We tested C/C++ Dimmunix on the following operating systems:
+ # We tested PThreads Dimmunix on the following operating systems:
  * Ubuntu 9.10 32 bit
  * Ubuntu 9.04 32 bit
  * Ubuntu 8.10 32 bit
  * Ubuntu 9.10 64 bit
  * Fedora 11 32 bit
  * Fedora 9 32 bit
+ # There are two deprecated versions of Dimmunix: one for Linux systems that is integrated in the NPTL library, and one for Java that is implemented using AspectJ.
