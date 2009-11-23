@@ -21,7 +21,7 @@ sudo apt-get install make gcc g++ scons
 }}}
  # Check out PThreads Dimmunix 
 {{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads dimmunix-pthreads
+svn checkout http://dimmunix.googlecode.com/svn/tags/dimmunix-pthreads-1.0 dimmunix-pthreads
 }}}
  # Compile PThreads Dimmunix
 {{{
