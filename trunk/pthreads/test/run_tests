@@ -1,0 +1,52 @@
+#!/bin/bash
+
+echo "---------compile test program"
+make
+
+echo
+
+echo "---------run test program; it should deadlock now"
+rm -f dlock.history
+LD_PRELOAD=../src/libdimmunix.so ./test
+
+echo
+
+echo "---------run test program; now it should not deadlock"
+LD_PRELOAD=../src/libdimmunix.so ./test
+
+echo
+
+echo "---------compile HawkNL"
+cd hawknl/src
+make
+
+echo
+
+echo "---------run HawkNL test; it should deadlock now"
+rm -f dlock.history
+LD_PRELOAD=../../../src/libdimmunix.so ./deadlock3
+
+echo
+
+echo "---------run HawkNL test; now it should not deadlock"
+LD_PRELOAD=../../../src/libdimmunix.so ./deadlock3
+
+echo
+
+echo "---------compile SQLite"
+cd ../../sqlite
+./configure --enable-threadsafe
+make
+cd deadlock_test
+make
+
+echo
+
+echo "---------run SQLite test; it should deadlock now"
+rm -f dlock.history
+LD_PRELOAD=../../../src/libdimmunix.so ./deadlock
+
+echo
+
+echo "---------run SQLite test; now it should not deadlock"
+LD_PRELOAD=../../../src/libdimmunix.so ./deadlock
