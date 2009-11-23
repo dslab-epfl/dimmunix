@@ -52,7 +52,7 @@ In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c
 
 To compile and run the tests, run
 {{{
-cd dimmunix-pthreads-test
+cd dimmunix-pthreads/test
 sh ./run_tests
 }}}
 
