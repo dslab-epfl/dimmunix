@@ -55,7 +55,7 @@ Follow the instructions from [Installation]
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/test dimmunix-pthreads-test
 }}}
-In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
+ In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
  # Compile and run the tests
 {{{
 cd dimmunix-pthreads-test
