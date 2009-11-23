@@ -1,31 +1,31 @@
 *Java*
 
  # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
- # Check out Dimmunix source code
+ # Check out Java Dimmunix
 {{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src dimmunix-java-src
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java dimmunix-java
 }}}
- # Compile Dimmunix 
+ # Compile Java Dimmunix 
 {{{
-cd dimmunix-java-src/Dimmunix
+cd dimmunix-java/src/Dimmunix
 ant
 cd ../DimmunixInstrumentation
 ant
 }}}
 
-*C/C++*
+*PThreads*
 
  # Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
 {{{
 sudo apt-get install make gcc g++ scons
 }}}
- # Checkout Dimmunix source code
+ # Check out PThreads Dimmunix 
 {{{
-svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/src dimmunix-pthreads-src
+svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads dimmunix-pthreads
 }}}
- # Compile Dimmunix
+ # Compile PThreads Dimmunix
 {{{
-cd dimmunix-pthreads-src/
+cd dimmunix-pthreads/src
 scons
 }}}
  This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ application.
