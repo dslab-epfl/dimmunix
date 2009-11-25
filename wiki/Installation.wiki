@@ -13,17 +13,17 @@ cd ../DimmunixInstrumentation
 ant
 }}}
 
-*PThreads*
+*POSIX Threads*
 
  # Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
 {{{
 sudo apt-get install make gcc g++ scons
 }}}
- # Check out PThreads Dimmunix 
+ # Check out POSIX Threads Dimmunix 
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/tags/dimmunix-pthreads-1.0 dimmunix-pthreads
 }}}
- # Compile PThreads Dimmunix
+ # Compile POSIX Threads Dimmunix
 {{{
 cd dimmunix-pthreads/src
 scons
