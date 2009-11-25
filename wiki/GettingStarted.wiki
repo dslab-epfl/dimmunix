@@ -9,4 +9,5 @@ Here is a [QuickGuidePOSIXThreads quick guide to using POSIX Threads Dimmunix].
 The early prototypes used for measurements reported in [http://dslab.epfl.ch/pubs/dimmunix Dimmunix paper] are available upon request. 
 These older versions are harder to use. 
 The old POSIX Threads Dimmunix modifies the NPTL library; therefore, the NPTL library needs to be recompiled. 
-The old Java Dimmunix uses AspectJ to statically instrument the application bytecode with Dimmunix; this can become a tedious task for large Java applications (e.g., JBoss).
+The old Java Dimmunix uses AspectJ to statically instrument the bytecode of the application classes with Dimmunix; this can become a tedious task for large Java applications (e.g., JBoss).
+The new Dimmunix distributions that we provide instrument the application at load-time; therefore, no recompilation or static instrumentation are needed.
