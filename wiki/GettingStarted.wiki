@@ -40,7 +40,7 @@ The deadlock history consists of deadlock signatures, one per line.
 
 The signature of a deadlock involving n threads has the following format:
 {{{
-deadlock_template=depth_1#call_stack_1;...,depth_n#call_stack_n
+deadlock_template=depth_1#call_stack_1;...;depth_n#call_stack_n
 }}}
  where call_stack_i represents the call stack thread i had when it acquired a lock involved in the deadlock.
 
