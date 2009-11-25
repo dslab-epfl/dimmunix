@@ -10,7 +10,7 @@ This guide helps you get Dimmunix and use it to immunize Java programs against d
 
 Follow the instructions from [Installation]
 
-== Use Dimmunix on test Java programs ==
+== Use Dimmunix on Test Java Programs ==
 
 The test programs from dimmunix-java/test folder deadlock deterministically.
 
@@ -44,13 +44,13 @@ deadlock_template=depth_1#call_stack_1;...,depth_n#call_stack_n
 }}}
  where call_stack_i represents the call stack thread i had when it acquired a lock involved in the deadlock.
 
-= Quick Guide to Using Dimmunix for PThreads =
+= Quick Guide to Using Dimmunix for POSIX Threads =
 
 == Download and Install ==
 
 Follow the instructions from [Installation]
 
-== Use Dimmunix on test C/C++ programs ==
+== Use Dimmunix on Test C/C++ Programs ==
 
 In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
 
@@ -64,7 +64,7 @@ In the first run, each test deadlocks and Dimmunix saves the deadlock history in
 
 = Notes: =
 
- * We tested PThreads Dimmunix on the following operating systems:
+ * We tested POSIX Threads Dimmunix on the following operating systems:
   * Ubuntu 9.10 32 bit
   * Ubuntu 9.04 32 bit
   * Ubuntu 8.10 32 bit
