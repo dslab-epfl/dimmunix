@@ -1,5 +1,7 @@
 = Quick Guide to Using Dimmunix for POSIX Threads =
 
+This guide helps you install POSIX Threads Dimmunix and use it to immunize C/C++ programs against deadlock bugs.
+
 == Install POSIX Threads Dimmunix ==
 
  # Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
@@ -15,7 +17,7 @@ svn checkout http://dimmunix.googlecode.com/svn/tags/dimmunix-pthreads-1.0 dimmu
 cd dimmunix-pthreads/src
 scons
 }}}
- This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ application.
+ This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ program.
 
 == Use Dimmunix on Test C/C++ Programs ==
 
