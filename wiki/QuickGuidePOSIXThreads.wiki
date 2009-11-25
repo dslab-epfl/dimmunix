@@ -1,0 +1,28 @@
+= Quick Guide to Using Dimmunix for POSIX Threads =
+
+== Download and Install ==
+
+Follow the instructions from [Installation].
+
+== Use Dimmunix on Test C/C++ Programs ==
+
+In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
+
+To compile and run the tests, run
+{{{
+cd dimmunix-pthreads/test
+sh ./run_tests
+}}}
+
+In the first run, each test deadlocks and Dimmunix saves the deadlock history in the folder containing the test. In future runs, the test never deadlocks again.
+
+= Notes: =
+
+ * We tested POSIX Threads Dimmunix on the following Linux distributions:
+  * Ubuntu 9.10 32 bit
+  * Ubuntu 9.04 32 bit
+  * Ubuntu 8.10 32 bit
+  * Ubuntu 9.10 64 bit
+  * Fedora 11 32 bit
+  * Fedora 9 32 bit
+ * There are two deprecated versions of Dimmunix: one for Linux systems that is integrated in the NPTL library, and one for Java that is implemented using AspectJ. We can provide these distributions upon request.
