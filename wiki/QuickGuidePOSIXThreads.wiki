@@ -2,6 +2,14 @@
 
 This guide helps you install POSIX Threads Dimmunix and use it to immunize C/C++ programs against deadlock bugs.
 
+We tested POSIX Threads Dimmunix on the following Linux distributions:
+  * Ubuntu 9.10 32 bit
+  * Ubuntu 9.04 32 bit
+  * Ubuntu 8.10 32 bit
+  * Ubuntu 9.10 64 bit
+  * Fedora 11 32 bit
+  * Fedora 9 32 bit
+
 == Install POSIX Threads Dimmunix ==
 
  # Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
@@ -30,13 +38,3 @@ sh ./run_tests
 }}}
 
 In the first run, each test deadlocks and Dimmunix saves the deadlock history in the folder containing the test. In future runs, the test never deadlocks again.
-
-= Notes: =
-
- * We tested POSIX Threads Dimmunix on the following Linux distributions:
-  * Ubuntu 9.10 32 bit
-  * Ubuntu 9.04 32 bit
-  * Ubuntu 8.10 32 bit
-  * Ubuntu 9.10 64 bit
-  * Fedora 11 32 bit
-  * Fedora 9 32 bit
