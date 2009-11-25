@@ -40,4 +40,3 @@ In the first run, each test deadlocks and Dimmunix saves the deadlock history in
   * Ubuntu 9.10 64 bit
   * Fedora 11 32 bit
   * Fedora 9 32 bit
- * There are two deprecated versions of Dimmunix: one for Linux systems that is integrated in the NPTL library, and one for Java that is implemented using AspectJ. We can provide these distributions upon request.
