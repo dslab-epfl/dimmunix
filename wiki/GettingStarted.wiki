@@ -64,7 +64,7 @@ In the first run, each test deadlocks and Dimmunix saves the deadlock history in
 
 = Notes: =
 
- * We tested POSIX Threads Dimmunix on the following operating systems:
+ * We tested POSIX Threads Dimmunix on the following Linux distributions:
   * Ubuntu 9.10 32 bit
   * Ubuntu 9.04 32 bit
   * Ubuntu 8.10 32 bit
