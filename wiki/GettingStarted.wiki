@@ -2,13 +2,15 @@ We have two distributions of Dimmunix: one for *Java* and one for *POSIX Threads
 Java Dimmunix intercepts the synchronization operations using the [http://asm.ow2.org/ ASM instrumentation framework].
 POSIX Threads Dimmunix works for *Linux* systems and intercepts synchronization operations using LD_PRELOAD.
 
+Here is.
+
 = Quick Guide to Using Dimmunix for Java =
 
 This guide helps you get Dimmunix and use it to immunize Java programs against deadlock bugs.
 
 == Download and Install ==
 
-Follow the instructions from [Installation]
+Follow the instructions from [Installation].
 
 == Use Dimmunix on Test Java Programs ==
 
@@ -48,7 +50,7 @@ deadlock_template=depth_1#call_stack_1;...;depth_n#call_stack_n
 
 == Download and Install ==
 
-Follow the instructions from [Installation]
+Follow the instructions from [Installation].
 
 == Use Dimmunix on Test C/C++ Programs ==
 
