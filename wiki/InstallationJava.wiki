@@ -1,13 +1,14 @@
-#summary One-sentence summary of this page.
+= Java Dimmunix Installation =
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+ # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
+ # Check out Java Dimmunix
+{{{
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java dimmunix-java
+}}}
+ # Compile Java Dimmunix 
+{{{
+cd dimmunix-java/src/Dimmunix
+ant
+cd ../DimmunixInstrumentation
+ant
+}}}
