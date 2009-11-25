@@ -1,4 +1,4 @@
-We have two distributions of Dimmunix: one for *Java* and one for *POSIX Threads*.
+Two distributions of Dimmunix are available on this web site: one for *Java* and one for *POSIX Threads*.
 Java Dimmunix intercepts the synchronization operations using the [http://asm.ow2.org/ ASM instrumentation framework].
 POSIX Threads Dimmunix works for *Linux* systems and intercepts synchronization operations using LD_PRELOAD.
 
