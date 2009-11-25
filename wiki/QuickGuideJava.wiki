@@ -4,7 +4,7 @@ This guide helps you get Dimmunix and use it to immunize Java programs against d
 
 == Download and Install ==
 
-Follow the instructions from [Installation].
+Follow the instructions from [InstallationJava].
 
 == Use Dimmunix on Test Java Programs ==
 
