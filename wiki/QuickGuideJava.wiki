@@ -1,10 +1,21 @@
-= Quick Guide to Using Dimmunix for Java =
+= Quick Guide to Using Java Dimmunix =
 
-This guide helps you get Dimmunix and use it to immunize Java programs against deadlock bugs.
+This guide helps you install Java Dimmunix and use it to immunize Java programs against deadlock bugs.
 
-== Download and Install ==
+== Install Dimmunix ==
 
-Follow the instructions from [InstallationJava].
+ # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
+ # Check out Java Dimmunix
+{{{
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java dimmunix-java
+}}}
+ # Compile Java Dimmunix 
+{{{
+cd dimmunix-java/src/Dimmunix
+ant
+cd ../DimmunixInstrumentation
+ant
+}}}
 
 == Use Dimmunix on Test Java Programs ==
 
