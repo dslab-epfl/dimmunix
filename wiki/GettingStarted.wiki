@@ -6,7 +6,4 @@ Here is a [QuickGuideJava quick guide to using Java Dimmunix].
 
 Here is a [QuickGuidePOSIXThreads quick guide to using POSIX Threads Dimmunix].
 
-The early prototypes used for measurements reported in <a  
-href=...>our paper</a> are available upon request. These older  
-versions are harder to use, because they modify the NPTL library (for  
-C/C++) and use AspectJ (for Java), respectively.
+The early prototypes used for measurements reported in [http://dslab.epfl.ch/pubs/dimmunix Dimmunix paper] are available upon request. These older versions are harder to use, because they modify the NPTL library (for C/C++) and use AspectJ (for Java), respectively.
