@@ -16,7 +16,7 @@ We tested POSIX Threads Dimmunix on the following Linux distributions:
 {{{
 sudo apt-get install make gcc g++ scons
 }}} 
- The versions of these package on our Ubuntu 9.10 32 bit installation are: g++ 4.4.1, gcc 4.4.1, make 3.81, scons 1.2.
+ The versions of these package on our Ubuntu 9.10 32 bit installation are: g++ 4.4.1, gcc 4.4.1, make 3.81, scons 1.2.0.
 2. Check out POSIX Threads Dimmunix 
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/tags/dimmunix-pthreads-1.0 dimmunix-pthreads
