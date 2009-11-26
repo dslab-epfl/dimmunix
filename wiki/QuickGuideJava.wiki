@@ -2,7 +2,7 @@
 
 This guide helps you install Java Dimmunix and use it to immunize Java programs against deadlock bugs.
 
-We tested Java Dimmunix on JRE 1.6.
+We tested Java Dimmunix on JRE 1.6, on an Ubuntu 9.10 32 bit system.
 
 == Install Java Dimmunix ==
 
