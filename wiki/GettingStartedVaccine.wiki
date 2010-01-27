@@ -1,7 +1,3 @@
-#summary One-sentence summary of this page.
-
-Here we provide the dimmunix vaccination framework for Java programs. 
-
 == How to Install Java Dimmunix Vaccination Framework? ==
 
 Check out Java Dimmunix Vaccination Framwork
