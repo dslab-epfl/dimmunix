@@ -1,0 +1,561 @@
+<?xml version="1.0"?>
+<project name="Dimmunix Vaccine" basedir="." default="run">
+
+	<!-- Properties -->
+
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir" value="lib" />
+	<!--<property name="config.dir" value="config" />-->
+
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+		<!--<pathelement location="${config.dir}" /> -->
+	</path>
+
+	<!-- Targets -->
+
+	<target name="compile">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath" nowarn="on" />
+	</target>
+
+	<target name="run" depends="compile">
+		<sequential>
+
+			<!-- Complex Test -->
+			<!--
+			<echo message="Testing Complex Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/complex" />
+				<jvmarg value="-Djava.package=tests.complex" />
+				<jvmarg value="-Djava.mainclass=tests.complex.Main" />
+			</java>
+			-->
+
+			<!-- Dimmunix Vector Test -->
+			<!--
+			<echo message="Testing Dimmunix Vector Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/dimm/testVector" />
+				<jvmarg value="-Djava.package=tests.dimm.testVector" />
+				<jvmarg value="-Djava.mainclass=tests.dimm.testVector.TestVector" />
+			</java>
+			-->
+
+			<!-- Dimmunix Test -->
+			<!--
+			<echo message="Testing Dimmunix Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/dimm/test" />
+				<jvmarg value="-Djava.package=tests.dimm.test" />
+				<jvmarg value="-Djava.mainclass=tests.dimm.test.TestB" />
+			</java>
+			-->
+
+			<!-- Test Branch-->
+			<!--
+			<echo message="Testing TestBranch" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/dimm/testBranch" />
+				<jvmarg value="-Djava.package=tests.dimm.testBranch" />
+				<jvmarg value="-Djava.mainclass=tests.dimm.test.TestBranch" />
+			</java>
+			-->
+
+			<!-- Bad Alias Test -->
+			<!--
+			<echo message="Testing Bad Alias Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/badAlias" />
+				<jvmarg value="-Djava.package=tests.badAlias" />
+				<jvmarg value="-Djava.mainclass=tests.badAlias.Main" />
+			</java>
+			-->
+
+			<!-- Bad Reachability Test -->
+			<!--
+			<echo message="Testing Bad Reachability Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=tests/badReachability" />
+				<jvmarg value="-Djava.package=tests.badReachability" />
+				<jvmarg value="-Djava.mainclass=tests.badReachability.Main" />
+			</java>
+			-->
+
+			<!-- DimmunixASMTests -->
+
+			<!-- Test -->
+			<!--
+			<echo message="Test" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+				<jvmarg value="-Djava.mainclass=dimmunixTests.Test" />
+			</java>
+			-->
+
+			<!-- TestBeanContextSupport -->
+			<!--
+			<echo message="TestBeanContextSupport" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestHashTable -->
+			<!--
+			<echo message="TestHashTable" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestJDBCMySQL1 -->
+			<!--
+			<echo message="TestJDBCMySQL1" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+				<jvmarg value="-Djava.mainclass=dimmunixTests.TestJDBCMySQL1" />
+			</java>
+		    -->
+
+			<!-- TestJDBCMySQL2 -->
+			<!--
+			<echo message="TestJDBCMySQL2" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestJDBCMySQL3 -->
+			<!--
+			<echo message="TestJDBCMySQL3" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/junit.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jboss-common-jdbc-wrapper.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/log4j-1.2.9.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/c3p0-0.8.5-pre8.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jta-spec1_0_1.jar" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+				<jvmarg value="-Djava.mainclass=dimmunixTests.TestJDBCMySQL3" />
+			</java>
+			-->
+
+			<!-- TestJDBCMySQL4 -->
+			<!--
+			<echo message="TestJDBCMySQL4" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestStringBuffer -->
+			<!--
+			<echo message="TestStringBuffer" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestVector -->
+			<!--
+			<echo message="TestVector" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- TestWriter -->
+			<!--
+			<echo message="TestWriter" />
+			<java classname="dIV.core.Validator" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixASMTests" />
+				</classpath>
+				<jvmarg value="-Djava.library.path=/home/cristina/Desktop/prog/jedd-0.4/runtime/lib/" />
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Xss256m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- MySQL JDBC in General -->
+			<!--
+			<java classname="evaluation.Evaluation" fork="true">
+				<arg value="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin"/>
+				<arg value="/home/pinar/workspace/sigs"/>
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/junit.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jboss-common-jdbc-wrapper.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/log4j-1.2.9.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/c3p0-0.8.5-pre8.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jta-spec1_0_1.jar" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- Microbenchmark -->
+			<!--
+			<java classname="evaluation.Evaluation" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/DimmunixVaccineMicrobenchmark/bin" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- ActiveMQ-4.0 -->
+			<!--
+			<java classname="evaluation.Evaluation" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/ActiveMQ-4.0-M4/activemq-core/target/classes" />
+					<pathelement location="/home/pinar/workspace/maven/repository/activeio/jars/activeio-2.1.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/geronimo-spec/jars/geronimo-spec-jms-1.1-rc4.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/backport-util-concurrent/jars/backport-util-concurrent-2.0_01_pd.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/incubator-activemq/jars/activemq-4.0-M4.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/commons-pool/jars/commons-pool-1.2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/commons-collections/jars/commons-collections-3.0.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/springframework/jars/spring-1.2.6.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/xalan/jars/xalan-2.6.0.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/xmlbeans/jars/xbean-2.0.0-beta1.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/org.apache.xbean/jars/xbean-spring-2.2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/cglib/jars/cglib-full-2.0.jar" />
+					<pathelement location="/home/pinar/asm-3.2/lib/asm-util-3.2.jar" />
+					<pathelement location="/home/pinar/asm-3.2/lib/asm-3.2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/activemq/jars/jmdns-1.0-RC2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/incubator-activemq/jars/activemq-jaas-4.0-M4.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/groovy/jars/gram-1.1.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/annogen/jars/annogen-0.1.0.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/groovy/jars/groovy-all-1.0-jsr-04.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/commons-cli/jars/commons-cli-1.0-beta-2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/xerces/jars/xercesImpl-2.8.0.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/xstream/jars/xstream-1.1.2.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/commons-lang/jars/commons-lang-2.0.jar" />
+					<pathelement location="/home/pinar/workspace/maven/repository/xmlpull/jars/xmlpull-1.1.3.4d_b4_min.jar" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- Vuze -->
+			<!--
+			<java classname="evaluation.Evaluation" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/vuze/Azureus2" />
+					<pathelement location="/home/pinar/workspace/vuze/swt.jar" />
+					
+
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- Limewire -->
+			<!--
+			<java classname="evaluation.Evaluation" fork="true">
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/limewire/core" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/google-collect-snapshot-20071022.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/hsqldb.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/glazedlists-1.7.0_java15.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/icu4j.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/foxtrot.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/smackx-debug.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/smack.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/daap.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/onion-common.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jaudiotagger.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jorbis.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/httpcore-nio-4.0-beta2-20080510.140437-10.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/MozillaInterfaces-1.9.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/httpcore-4.0-beta2-20080510.140437-10.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/guice-snapshot.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/ProgressTabs.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/commons-math-1.2.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/miglayout.jar:lib/jars/EventBus-1.2b.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/forms.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/tritonus.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/log4j.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/dnsjava.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/mp3spi.jar:lib/jars/jl.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/MozillaGlue-1.9.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/mozdom4java.jar:lib/jars/commons-net.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/commons-net.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/vorbisspi.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/gettext-commons.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jcraft.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/smackx.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/commons-logging.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/httpclient-4.0-alpha5-20080522.192134-5.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/commons-codec-1.3.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jna.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jdic.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/mozswing.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/base64-2.2.2.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jxlayer.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/messages.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/guice-assistedinject-snapshot.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/aopalliance.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jmdns.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jflac.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/looks.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/AppFramework.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/swingx-0.9.3.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/clink.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/onion-fec.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/swing-worker-1.1.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/jogg.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/linux/jdic_stub.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/other/themes.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/resources/linux" />
+					<pathelement location="/home/pinar/workspace/limewire/components/collection/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/collection/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/common/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/common/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-api/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-api/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-glue/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-glue/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-settings/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/core-settings/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/geocode/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/geocode/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/http/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/http/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/io/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/io/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/lwsserver/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/lwsserver/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/mojito/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/mojito/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/mojito-ui/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/mojito-ui/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/net/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/net/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/nio/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/nio/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/promotion/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/promotion/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/resources/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/resources/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/rudp/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/rudp/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/security/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/security/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/setting/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/setting/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/statistic/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/statistic/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/test-util/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/test-util/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/xmpp/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/xmpp/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/components/xmpp-api/build/classes" />
+					<pathelement location="/home/pinar/workspace/limewire/components/xmpp-api/src/main/resources" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/guice-assistedinject-snapshot.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/guice-snapshot.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/tests/junit.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/private-components/integrated-ui/build/classes/" />
+					<pathelement location="/home/pinar/workspace/limewire/private-components/swingui/build/classes/" />
+					<pathelement location="/home/pinar/workspace/limewire/private-components/mock-core/build/classes/" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/EventBus-1.2b.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/miglayout.jar" />
+					<pathelement location="/home/pinar/workspace/limewire/lib/jars/mozdom4java.jar" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+			-->
+
+			<!-- MySQL Example -->
+			<java classname="evaluation.Evaluation" fork="true">
+				<arg value="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin"/>
+				<arg value="/home/pinar/workspace/dimmunix-google/java/src/Vaccine/src/signatures/JDBCMySQLSigs"/>
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/junit.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jboss-common-jdbc-wrapper.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/log4j-1.2.9.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/c3p0-0.8.5-pre8.jar" />
+					<pathelement location="/home/pinar/workspace/mysql-connector-java-5.0.0-beta/bin/lib/jta-spec1_0_1.jar" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
+
+		</sequential>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+</project>

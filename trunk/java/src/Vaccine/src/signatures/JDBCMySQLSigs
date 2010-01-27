@@ -1,0 +1,2 @@
+deadlock_template=1#com.mysql.jdbc.Statement.getWarnings(Statement.java:1682);1#com.mysql.jdbc.Connection.close(Connection.java:2074)
+deadlock_template=1#com.mysql.jdbc.Connection.prepareStatement(Connection.java:4210);1#com.mysql.jdbc.Statement.executeQuery(Statement.java:902)
