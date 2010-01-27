@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="trash/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/jasminclasses-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/jedd-runtime.jar"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/jedd-translator.jar"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/paddle-nightly.jar"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/polyglotclasses-1.3.5.jar"/>
+	<classpathentry kind="lib" path="/home/pinar/workspace/dimmunixVaccine/lib/sootclasses-2.3.0-.jar" sourcepath="/home/pinar/eclipse/plugins/ca.mcgill.sable.soot.lib_2.3.0/lib/sootsrc.zip"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
