@@ -9,7 +9,7 @@ svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src/Vaccine
 
 You need to make some changes in the build.xml file, which is under Vaccine folder
 
-1. You need to specify the path of the program bytecode for the program you want to run dimmunix vaccination framework with. (First "arg value" in build.xml)
+1. You need to specify the path of the program bytecode for the program you want to check. (First "arg value" in build.xml)
 
 2. The signatures to be validated should be given in a file and path to that file should be specified. (Second "arg value" in build.xml)
 
