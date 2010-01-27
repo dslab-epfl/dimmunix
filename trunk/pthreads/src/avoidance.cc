@@ -48,8 +48,6 @@ dlock::Thread* dlock_thread_create() {
 void dlock_acquire(dlock::Thread* thr, dlock::Mutex* mtx, int non_blocking) {
 	if (thr->in_dimmunix)
 		return;
-	if (mtx->owner == thr)
-		return;
 	thr->in_dimmunix = true;
 	gAvoid.acquire(thr, mtx, non_blocking);
 	thr->in_dimmunix = false;
@@ -60,7 +58,6 @@ void dlock_acquired(dlock::Thread* thr, dlock::Mutex* mtx) {
 		return;
 	thr->in_dimmunix = true;
 	gAvoid.acquired(thr, mtx);
-	mtx->count++;
 	thr->in_dimmunix = false;
 }
 
@@ -69,7 +66,6 @@ void dlock_release(dlock::Thread* thr, dlock::Mutex* mtx) {
 		return;
 	thr->in_dimmunix = true;
 	gAvoid.release(thr, mtx);
-	mtx->count--;
 	thr->in_dimmunix = false;
 }
 
@@ -91,7 +87,8 @@ namespace dlock {
 #define STACK_OVERHEAD 2
 #endif
 
-Avoidance::Avoidance() : enable_dynamic_analysis(false),
+Avoidance::Avoidance() :
+	enable_dynamic_analysis(false),
 	default_stack_depth(DIMMU_MAX_STACK_DEPTH),
 	default_match_depth(DIMMU_MAX_STACK_DEPTH),
 	yield_count(0),
@@ -100,6 +97,8 @@ Avoidance::Avoidance() : enable_dynamic_analysis(false),
 
 	pthread_mutex_init(&avoidLock, 0);
 	dlock_mutex_disable_avoidance(&avoidLock);
+
+	pthread_rwlock_init(&plock, NULL);
 
 //	position_cache.resize(CACHE_POSITION_CAPACITY);
 //	allowed.resize(ALLOWED_CAPACITY);
@@ -237,16 +236,29 @@ void Avoidance::acquire(Thread* thr, Mutex* mtx, int non_blocking) {
 	if (!mtx->avoiding() || !enabled)
 		return;
 
+	if (mtx->owner == thr)
+		return;
+
 	StackTrace st;
 	st.match_depth = default_match_depth;
 	st.capture(default_stack_depth); /* capture stack trace */
 
-	plock.lock();
-	Position* &p = position_cache[hash_value(st)];
-	plock.unlock();
+	Position* p = NULL;
+	size_t hash_p = hash_value(st);
+	pthread_rwlock_rdlock(&plock);
+	PositionCacheMap::iterator it_pos = position_cache.find(hash_p);
+	if (it_pos != position_cache.end())
+		p = it_pos->second;
+	pthread_rwlock_unlock(&plock);
 
-	if (p == NULL) /* new position */
-		p = new Position(st);
+	if (p == NULL) /* new position */ {
+		pthread_rwlock_wrlock(&plock);
+		Position* &pnew = position_cache[hash_p];
+		if (pnew == NULL)
+			pnew = new Position(st);
+		pthread_rwlock_unlock(&plock);
+		p = pnew;
+	}
 
 	thr->lockPos = p; /* small hack (#1) to pass the lock position */
 
@@ -270,17 +282,27 @@ void Avoidance::acquired(Thread* thr, Mutex* mtx) {
 	if (!mtx->avoiding() || !enabled)
 		return;
 
-	mtx->pos = thr->lockPos; /* (#1) acqPos[l] = p */
-	mtx->owner = thr;
-	thr->enqueue_event(thr->lockPos, mtx, Event::ACQUIRED);
-	if (enable_dynamic_analysis) {
-		thr->acquire(mtx);
+	if (mtx->owner == NULL) {
+		mtx->pos = thr->lockPos; /* (#1) acqPos[l] = p */
+		mtx->owner = thr;
+
+		thr->enqueue_event(thr->lockPos, mtx, Event::ACQUIRED);
+		if (enable_dynamic_analysis) {
+			thr->acquire(mtx);
+		}
 	}
+	mtx->count++;
 }
 
 void Avoidance::release(Thread* thr, Mutex* mtx) {
 	if (!mtx->avoiding() || !enabled)
 		return;
+
+	mtx->count--;
+	if (mtx->count > 0)
+		return;
+
+	mtx->owner = NULL;
 
 	if (mtx->pos == NULL) {
 		DLOCK_DEBUGF("%p mutex position NULL\n", pthread_self());
@@ -289,7 +311,6 @@ void Avoidance::release(Thread* thr, Mutex* mtx) {
 
 	Position *p = mtx->pos;
 	mtx->pos = NULL; /* acqPos[l] = null */
-	mtx->owner = NULL;
 	thr->enqueue_event(p, mtx, Event::RELEASE);
 
 	real_pthread_mutex_lock(&avoidLock); /* native_lock(avoidanceLock) */

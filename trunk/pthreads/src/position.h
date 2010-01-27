@@ -95,11 +95,13 @@ public:
 	void capture(const int depth = DIMMU_MAX_STACK_DEPTH) {
 		stack.resize(depth+ DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP);
 		int n = backtrace(&stack[0], depth+ DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP);
-		n -= DIMMU_STACK_SKIP_BOTTOM+ DIMMU_STACK_SKIP_TOP; /* remove extra frames (e.g. acquire) */
+		n -= DIMMU_STACK_SKIP_BOTTOM; /* remove extra frames (e.g. acquire) */
 		stack.erase(stack.begin(), stack.begin() + DIMMU_STACK_SKIP_BOTTOM);
-		stack.erase(stack.end()- DIMMU_STACK_SKIP_TOP, stack.end());
+		if (n > DIMMU_STACK_SKIP_TOP) {
+			stack.erase(stack.end()- DIMMU_STACK_SKIP_TOP, stack.end());
+			n -= DIMMU_STACK_SKIP_TOP;
+		}
 		if (depth > n) { /* if we asked more than needed */
-			//n -= DIMMU_STACK_SKIP_TOP; /* remove extra frames (e.g. clone) */
 			stack.resize(n);
 		}
 		if (match_depth > n)

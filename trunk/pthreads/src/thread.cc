@@ -58,13 +58,13 @@ void Thread::yield_wait() {
 
 /* if yield_cause is not empty wakes up this thread */
 void Thread::yield_notify() {
+	real_pthread_mutex_lock(&fYieldMtx);		/* native_lock(yieldLock[t']) */
 	if (!yield_cause.empty()) {
-//		real_pthread_mutex_lock(&fYieldMtx);		/* native_lock(yieldLock[t']) */
 		yield_cause.clear();			/* yieldCause[t'] = null */
 		pthread_cond_signal(&fYieldCond);	/* yieldLock[t'].notify */
 		DLOCK_DEBUGF("%p notifies\n", pthread_self());
-//		real_pthread_mutex_unlock(&fYieldMtx);	/* native_unlock(yieldLock[t']) */
 	}
+	real_pthread_mutex_unlock(&fYieldMtx);	/* native_unlock(yieldLock[t']) */
 }
 
 void Thread::acquire(Mutex* m) {
