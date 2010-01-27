@@ -32,7 +32,7 @@ The Vaccine/build.xml file contains an example for trying the vaccination framew
 
 The Vaccine/src/signatures/JDBCMySQLSigs contains two valid deadlock signatures for MySQL JDBC 5.0.
 
-However, you should update the paths in build.xml according to where you checked out MySQL JDBC 5.0 and Vaccine.
+However, you should update the paths in build.xml according to where you checked out MySQL JDBC 5.0 and Dimmunix Vaccination Framework.
 
 
 Below there is an example build.xml file for validating the deadlock signatures in Vaccine/src/signatures/JDBCMySQLSigs;
