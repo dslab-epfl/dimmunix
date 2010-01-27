@@ -56,5 +56,5 @@ Below there is an example build.xml file for validating the deadlock signatures 
 				<jvmarg value="-Djava.sigPath=signatures" />
 			</java>
 
-You might need to add the classpath to jsse.jar, e.g., 
+You might also need to add the classpath to jsse.jar, e.g., 
 <pathelement location="/usr/lib/jvm/java-6-sun-1.6.0.16/jre/lib/jsse.jar" />
