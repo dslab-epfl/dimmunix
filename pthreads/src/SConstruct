@@ -1,4 +1,4 @@
-files = ['preload.c', 'dlock.c', 'util.c', 'position.cc', 'template.cc', 'mutex.cc', 'thread.cc', 'detection.cc', 'avoidance.cc', 'graph.cc']
+files = ['preload.c', 'avoidance.cc', 'detection.cc', 'dlock.c', 'util.c', 'position.cc', 'template.cc', 'mutex.cc', 'thread.cc', 'graph.cc']
 
 env = Environment(CCFLAGS='-Wall -g -DNDEBUG -D_GNU_SOURCE', LIBS=['pthread', 'dl', 'stdc++'])
 env.SharedLibrary('dimmunix', files)

@@ -108,6 +108,7 @@ public:
 	volatile long tlastInstUsec;
 	volatile int deltaInstUsec;
 	volatile unsigned maxFPsPerSig;
+
 	bool enable_dynamic_analysis;
 
 	/* template history */
@@ -148,7 +149,7 @@ private:
 
 	/* cache all positions found so far */
 //	pthread_mutex_t positionLock;
-	ULock plock;
+	pthread_rwlock_t plock;
 	PositionCacheMap position_cache;
 
 	bool yield_request(Thread* thr, Mutex* mtx, Position* pos);
