@@ -19,6 +19,12 @@ You need to make some changes in the build.xml file which is under Vaccine folde
 
 3. Paths to the necessary bytecode and .jar files should be specifed ("pathelement location" in build.xml)
 
+4. Then you can run the dimmunix vaccination framework 
+{{{
+cd <path to Dimmunix Vaccination Framework>
+ant run
+}}}
+
 == Example With MySQL JDBC 5.0 ==
 
 You can check out MySQL JDBC 5.0
@@ -32,7 +38,8 @@ The Vaccine/src/signatures/JDBCMySQLSigs contains two valid deadlock signatures 
 
 However, you should update the paths in build.xml according to where you checkout MySQL JDBC 5.0 and Vaccine.
 
-Below there is an example build.xml file;
+
+Below there is an example build.xml file for validating the deadlock signatures in Vaccine/src/signatures/JDBCMySQLSigs;
 
 <java classname="evaluation.Evaluation" fork="true">
 				<arg value="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin"/>
