@@ -5,7 +5,7 @@ Check out Java Dimmunix Vaccination Framwork
 svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src/Vaccine 
 }}}
 
-== How to Use Dimmunix Vaccination Framework on Test Java Programs? ==
+== How to Use Dimmunix Vaccination Framework on Java Programs? ==
 
 You need to make some changes in the build.xml file, which is under Vaccine folder
 
