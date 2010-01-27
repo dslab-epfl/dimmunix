@@ -1,13 +1,54 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+Here we provide the dimmunix vaccination framework for Java programs. 
 
-Add your content here.
+== How to Install Java Dimmunix Vaccination Framework? ==
 
+Check out Java Dimmunix Vaccination Framwork
+{{{
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src/Vaccine 
+}}}
 
-= Details =
+== How to Use Dimmunix Vaccination Framework on Test Java Programs? ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+You need to make some changes in the build.xml file which is under Vaccine folder
+
+1. You need to specify the path of the program bytecode for the program you want to run dimmunix vaccination framework with. (First "arg value" in build.xml)
+
+2. The signatures to be validated should be given in a file and path to that file should be specified. (Second "arg value" in build.xml)
+
+3. Paths to the necessary bytecode and .jar files should be specifed ("pathelement location" in build.xml)
+
+== Example With MySQL JDBC 5.0 ==
+
+You can check out MySQL JDBC 5.0
+{{{
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src/test/mysql-connector-java-5.0.0-beta 
+}}}
+
+The Vaccine/build.xml file contains an example for trying the vaccination framework with MySQL JDBC 5.0.
+
+The Vaccine/src/signatures/JDBCMySQLSigs contains two valid deadlock signatures for MySQL JDBC 5.0.
+
+However, you should update the paths in build.xml according to where you checkout MySQL JDBC 5.0 and Vaccine.
+
+Below there is an example build.xml file;
+
+<java classname="evaluation.Evaluation" fork="true">
+				<arg value="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin"/>
+				<arg value="<path to Dimmunix Vaccine Framework>/Vaccine/src/signatures/JDBCMySQLSigs"/>
+				<classpath>
+					<path refid="classpath" />
+					<pathelement location="${build.dir}" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin/lib/junit.jar" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin/lib/jboss-common-jdbc-wrapper.jar" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin/lib/log4j-1.2.9.jar" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin/lib/c3p0-0.8.5-pre8.jar" />
+					<pathelement location="<path to MySQL JDBC 5.0>/mysql-connector-java-5.0.0-beta/bin/lib/jta-spec1_0_1.jar" />
+				</classpath>
+				<jvmarg value="-Xmx2000m" />
+				<jvmarg value="-Xss128m" />
+				<jvmarg value="-Djava.srcdir=src" />
+				<jvmarg value="-Djava.sigPath=signatures" />
+			</java>
