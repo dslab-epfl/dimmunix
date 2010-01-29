@@ -1,29 +1,3 @@
-/*
-     Created by Saman A. Zonouz, Horatiu Jula, Pinar Tozun, Cristina Basescu, George Candea
-     Copyright (C) 2009 EPFL (Ecole Polytechnique Federale de Lausanne)
-
-     This file is part of Dimmunix Vaccination Framework.
-
-     Dimmunix Vaccination Framework is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or (at
-     your option) any later version.
-
-     Dimmunix Vaccination Framework is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-     General Public License for more details.
-
-     You should have received a copy of the GNU General Public
-     License along with Dimmunix Vaccination Framework. If not, see http://www.gnu.org/licenses/.
-
-     EPFL
-     Dependable Systems Lab (DSLAB)
-     Room 330, Station 14
-     1015 Lausanne
-     Switzerland
-*/
-
 package dIV.core.staticAnalysis;
 
 import java.util.Collection;
@@ -144,6 +118,7 @@ public class StaticAnalysis extends IStaticAnalyzer {
 			cl.setApplicationClass();
 		}
 
+		
 		for (Signature s : sigs)
 			for (String c : s.getClasses()) {
 				if (!classes.contains(c)) {
@@ -604,21 +579,23 @@ public class StaticAnalysis extends IStaticAnalyzer {
 	 * 
 	 */
 	private void collectLockSequences(Vector<CallFrame> CS, Stmt stmt, Vector<LockEvent> LBranch, Stmt targetStmt, SootMethod crtMethod,
-			SootMethod initMethod, Chain<Unit> stmts, HashMap<Stmt, Integer> nExecs, Vector<Vector<LockEvent>> L) {
+			SootMethod initMethod, Chain<Unit> stmts, HashMap<Stmt, Integer> nExecs, Vector<Vector<LockEvent>> L, boolean isBranch) {
 		if (stmt != null) {
-			// System.out.println("Current Stmt: " + stmt.toString() + " line="
+			//System.out.println("Current Stmt: " + stmt.toString() + " line="
 			// + this.getLineNumber(stmt)); // **
 			// handle loops
+			if(!isBranch) {
 			Integer nExec = nExecs.remove(stmt);
 			if (nExec != null)
 				nExecs.put(stmt, nExec.intValue() + 1);
 			else
 				nExecs.put(stmt, 1);
-			if (nExecs.get(stmt) > 1)
+			if (nExecs.get(stmt) > 2)
 				return;
+			}
 			// handle end of the path
 			if (stmt.equals(targetStmt)) {
-				// System.out.println("s = starget"); // **
+				//System.out.println("s = starget"); // **
 				// for EnterMonitorStmt
 				if (targetStmt instanceof EnterMonitorStmt)
 					LBranch.add(new LockEvent(crtMethod, stmt, false));
@@ -634,29 +611,29 @@ public class StaticAnalysis extends IStaticAnalyzer {
 			}
 			// handle lock/unlock operations
 			else if (stmt instanceof EnterMonitorStmt || stmt instanceof ExitMonitorStmt) {
-				// System.out.println("s = lock(x) or s = unlock(x)"); // **
+				//System.out.println("s = lock(x) or s = unlock(x)"); // **
 				LBranch.add(new LockEvent(crtMethod, stmt, false));
-				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 			}
 			// handle if conditions
 			else if (stmt instanceof IfStmt) {
-				// System.out.println("s = if"); // **
+			//	System.out.println("s = if"); // **
 				Vector<LockEvent> LBranchFalse = (Vector<LockEvent>) LBranch.clone();
 				// handle if true
-				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 				// handle if false
 				Stmt stmtFalse = ((IfStmt) stmt).getTarget();
 				if (crtMethod != initMethod || (targetStmt != null && this.getLineNumber(stmtFalse) <= this.getLineNumber(targetStmt))) {
-					this.collectLockSequences(CS, stmtFalse, LBranchFalse, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+					this.collectLockSequences(CS, stmtFalse, LBranchFalse, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 					if (LBranchFalse.size() > 0) {
-						// System.out.println("Branching...");
+						//System.out.println("Branching...");
 						L.add(LBranchFalse);
 					}
 				}
 			}
 			// handle switch
 			else if (stmt instanceof TableSwitchStmt) {
-				// System.out.println("s = switch"); // **
+				//System.out.println("s = switch"); // **
 				List<Unit> targetStmts = ((TableSwitchStmt) stmt).getTargets();
 				Vector<LockEvent> LBranchSwitch;
 				Stmt crtTargetStmt;
@@ -665,43 +642,43 @@ public class StaticAnalysis extends IStaticAnalyzer {
 					LBranchSwitch = (Vector<LockEvent>) LBranch.clone();
 					if (crtMethod != initMethod
 							|| (targetStmt != null && this.getLineNumber(crtTargetStmt) <= this.getLineNumber(targetStmt))) {
-						this.collectLockSequences(CS, crtTargetStmt, LBranchSwitch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+						this.collectLockSequences(CS, crtTargetStmt, LBranchSwitch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 						if (LBranchSwitch.size() > 0) {
-							// System.out.println("Branching...");
+							//System.out.println("Branching...");
 							L.add(LBranchSwitch);
 						}
 					}
 				}
 				crtTargetStmt = (Stmt) targetStmts.get(targetStmts.size() - 1);
 				if (crtMethod != initMethod || (targetStmt != null && this.getLineNumber(crtTargetStmt) <= this.getLineNumber(targetStmt))) {
-					this.collectLockSequences(CS, crtTargetStmt, LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+					this.collectLockSequences(CS, crtTargetStmt, LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 				}
 			}
 			// handle goto
 			else if (stmt instanceof GotoStmt) {
-				// System.out.println("s = goto"); // **
+				//System.out.println("s = goto"); // **
 				Stmt stmtGoto = (Stmt) ((GotoStmt) stmt).getTarget();
-				this.collectLockSequences(CS, stmtGoto, LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+				this.collectLockSequences(CS, stmtGoto, LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 			}
 			// handle return
 			else if (stmt instanceof ReturnStmt || stmt instanceof ReturnVoidStmt) {
-				// System.out.println("s = return"); // **
+				//System.out.println("s = return"); // **
 				if (CS.size() != 0) {
 					CallFrame topFrame = CS.remove(CS.size() - 1);
 					Chain<Unit> stmtsReturned = topFrame.method.getActiveBody().getUnits();
 					this.collectLockSequences(CS, (Stmt) stmtsReturned.getSuccOf(topFrame.stmt), LBranch, targetStmt, topFrame.method,
-							initMethod, stmtsReturned, nExecs, L);
+							initMethod, stmtsReturned, nExecs, L, false);
 				}
 			}
 			// handle function call
 			else if (stmt.containsInvokeExpr()) {
-				// System.out.println("s = call"); // **
+				//System.out.println("s = call"); // **
 				SootMethod calledMethod = stmt.getInvokeExpr().getMethod();
 				if (!this.methodsLockUnlock.containsKey(calledMethod.getSignature()))
 					this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs,
-							L);
+							L, false);
 				else {
-					// System.out.println("lock/unlock call");
+					//System.out.println("lock/unlock call");
 					// to handle inheritance
 					Vector<SootMethod> mWithSameSignature = this.getMethodsWithSameSignature(calledMethod);
 					for (SootMethod m : mWithSameSignature) {
@@ -711,10 +688,10 @@ public class StaticAnalysis extends IStaticAnalyzer {
 							Chain<Unit> stmtsCalled = m.retrieveActiveBody().getUnits();
 							CS.add(new CallFrame(crtMethod, stmt));
 							this.collectLockSequences(CS, (Stmt) stmtsCalled.getFirst(), LBranchCall, targetStmt, m, initMethod,
-									stmtsCalled, nExecs, L);
+									stmtsCalled, nExecs, L, true);
 							this.handleSyncMethods(m, LBranchCall, false, this.getLineNumber(stmt));
 							if (LBranchCall.size() > 0) {
-								// System.out.println("Branching...");
+								//System.out.println("Branching...");
 								L.add(LBranchCall);
 							}
 						}
@@ -725,12 +702,13 @@ public class StaticAnalysis extends IStaticAnalyzer {
 						Chain<Unit> stmtsCalled = calledMethod.retrieveActiveBody().getUnits();
 						CS.add(new CallFrame(crtMethod, stmt));
 						this.collectLockSequences(CS, (Stmt) stmtsCalled.getFirst(), LBranch, targetStmt, calledMethod, initMethod,
-								stmtsCalled, nExecs, L);
+								stmtsCalled, nExecs, L, false);
 						this.handleSyncMethods(calledMethod, LBranch, false, this.getLineNumber(stmt));
-					}
+					} /*else this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs,
+							L, false); */
 				}
 			} else if (stmts.getSuccOf(stmt) != null) {
-				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L);
+				this.collectLockSequences(CS, (Stmt) stmts.getSuccOf(stmt), LBranch, targetStmt, crtMethod, initMethod, stmts, nExecs, L, false);
 			}
 		}
 	}
@@ -763,6 +741,8 @@ public class StaticAnalysis extends IStaticAnalyzer {
 				s.addTag(new LineNumberTag(lineNumber));
 				LBranch.add(new LockEvent(m, s, true));
 			}
+			//System.out.println("synch method: ");
+			//LBranch.get(LBranch.size()-1).print();
 		}
 	}
 
@@ -827,6 +807,8 @@ public class StaticAnalysis extends IStaticAnalyzer {
 	private boolean hasInversion() {
 
 		this.removeEmptyBranches();
+		
+		//this.printLSeqsList(this.LSeqsList);
 
 		InversionInstance[] outerLocks = new InversionInstance[this.LSeqsList.size()];
 		InversionInstance[] innerLocks = new InversionInstance[this.LSeqsList.size()];
@@ -919,6 +901,16 @@ public class StaticAnalysis extends IStaticAnalyzer {
 			if (!finished)
 				return false;
 		}
+/*
+		if (finished) {
+			System.out.println("OuterLocks-------------------------------");
+			for (InversionInstance i : outerLocks)
+				i.l.print();
+			System.out.println("InnerLocks-------------------------------");
+			for (InversionInstance i : innerLocks)
+				i.l.print();
+		}
+*/
 
 		return finished;
 	}
@@ -1013,8 +1005,7 @@ public class StaticAnalysis extends IStaticAnalyzer {
 		Vector<CallFrame> CSLast = new Vector<CallFrame>();
 		// Collect the sequence of lock/unlock operations for each thread
 		for (SigComponent sc : this.sig.components) {
-			// System.out.println("-------------------------------------"); //
-			// **
+			//System.out.println("-------------------------------------"); // **
 			LSeqs = new Vector<Vector<Vector<LockEvent>>>();
 			for (int i = sc.outer.stack.size() - 1; i >= 0; i--) {
 				crtFrame = sc.outer.stack.get(i);
@@ -1037,7 +1028,7 @@ public class StaticAnalysis extends IStaticAnalyzer {
 				if (!this.LSeqsFrameMap.containsKey(crtFrame.getFormat())) {
 					nExecs.clear();
 					L.add(LBranch);
-					collectLockSequences(new Vector<CallFrame>(), firstStmt, LBranch, targetStmt, crtMethod, crtMethod, stmts, nExecs, L);
+					collectLockSequences(new Vector<CallFrame>(), firstStmt, LBranch, targetStmt, crtMethod, crtMethod, stmts, nExecs, L, false);
 					LSeqs.add(L);
 					this.LSeqsFrameMap.put(crtFrame.getFormat(), L);
 				} else
@@ -1054,7 +1045,7 @@ public class StaticAnalysis extends IStaticAnalyzer {
 			CSLast.remove(CSLast.size() - 1);
 			L.add(LBranch);
 			// if (!targetStmt.containsInvokeExpr())
-			collectLockSequences(CSLast, (Stmt) stmts.getSuccOf(targetStmt), LBranch, null, crtMethod, crtMethod, stmts, nExecs, L);
+			collectLockSequences(CSLast, (Stmt) stmts.getSuccOf(targetStmt), LBranch, null, crtMethod, crtMethod, stmts, nExecs, L, false);
 			/*
 			 * else { Vector<SootMethod> methods = this.getMethodsWithSameSignature(targetStmt .getInvokeExpr().getMethod()); for (int i =
 			 * 0; i < methods.size(); i++) { crtMethod = methods.get(i); if (crtMethod.isConcrete() && crtMethod.isSynchronized()) { stmts =
