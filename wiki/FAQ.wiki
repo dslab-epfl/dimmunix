@@ -6,7 +6,7 @@ Dimmunix has received a lot of attention recently from programming experts and r
 
 We are interested in recruiting developers to the Dimmunix open-source project, to help us make Dimmunix accessible to as wide an audience as possible, both in terms of packaging and documentation. There is no fundamental reason why Dimmunix could not be used by everybody who can use a computer. Unfortunately, we are researchers who produce research prototypes and write papers, and so we are not particularly skilled at developing user-friendly products – for that, we need the help of the open-source community.
 
-====So far, Dimmunix apparently is focused on tracking and avoiding bugs that cause software to hang/freeze. Can it protect against other types of bugs too?====
+*So far, Dimmunix apparently is focused on tracking and avoiding bugs that cause software to hang/freeze. Can it protect against other types of bugs too?*
 
 Indeed, the current implementation distributed as open-source only provides immunity against so-called deadlocks, which cause hangs and freezes. However, the overall approach of failure immunity can be applied more broadly to other kinds of bugs and failures. Our hope is that other developers will join us in the open-source effort to help expand the general notion of failure immunity to other kinds of bugs.
 
