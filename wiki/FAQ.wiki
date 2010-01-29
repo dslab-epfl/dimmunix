@@ -2,7 +2,7 @@
 
 Dimmunix has received a lot of attention recently from programming experts and regular users alike. This FAQ attempts to answer some of the questions non-programmer end users might have, for whom finding answers in the [http://dslab.epfl.ch/pubs/dimmunix Dimmunix research paper] or by reading [http://code.google.com/p/dimmunix/ the code] is likely not feasible.
 
-====Can Dimmunix be employed by end users? Are there any plans to package it in a more end-user-friendly form?====
+*Can Dimmunix be employed by end users? Are there any plans to package it in a more end-user-friendly form?*
 
 We are interested in recruiting developers to the Dimmunix open-source project, to help us make Dimmunix accessible to as wide an audience as possible, both in terms of packaging and documentation. There is no fundamental reason why Dimmunix could not be used by everybody who can use a computer. Unfortunately, we are researchers who produce research prototypes and write papers, and so we are not particularly skilled at developing user-friendly products – for that, we need the help of the open-source community.
 
