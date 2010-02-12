@@ -26,6 +26,12 @@ export CLASSPATH=$CLASSPATH:<path to asm-3.2>/lib/asm-3.2.jar
 ant
 }}}
 
+=== From Precompiled Binaries ===
+
+ # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
+ # Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix]
+ # Download [http://dimmunix.googlecode.com/files/DimmunixAgent.jar Dimmunix agent]
+
 == Use Dimmunix on Test Java Programs ==
 
 The test programs from dimmunix-java/test folder deadlock deterministically.
