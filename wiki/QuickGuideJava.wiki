@@ -7,6 +7,10 @@ We tested Java Dimmunix on JRE 1.6, on an Ubuntu 9.10 32 bit system.
 == Install Java Dimmunix ==
 
  # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
+ # Install ant and svn
+{{{
+sudo apt-get install ant subversion
+}}}
  # Check out Java Dimmunix
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/java dimmunix-java
