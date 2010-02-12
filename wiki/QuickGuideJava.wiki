@@ -31,6 +31,7 @@ ant
  # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
  # Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix]
  # Download [http://dimmunix.googlecode.com/files/DimmunixAgent.jar Dimmunix agent]
+ # Download [http://dimmunix.googlecode.com/files/DimmunixTests.jar test programs]
 
 == Use Dimmunix on Test Java Programs ==
 
@@ -38,6 +39,7 @@ The test programs from dimmunix-java/test folder deadlock deterministically.
 
 To use Dimmunix on a test program, do the following steps:
 
+=== If you installed Dimmunix from source code ===
 1. Compile the tests
 {{{
 cd dimmunix-java/test
