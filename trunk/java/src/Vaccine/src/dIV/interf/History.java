@@ -46,19 +46,16 @@ final class History implements IReadOnlyHistory, IFullHistory {
 		// TODO get signatures from history file
 	}
 
-	@Override
 	public synchronized LinkedList<Signature> getSignatures() {
 		// TODO Auto-generated method stub
 		return signatures;
 	}
 
-	@Override
 	public synchronized void addSignature(Signature s) {
 		// TODO Auto-generated method stub
 		signatures.add(s);
 	}
 	
-	@Override
 	public synchronized void removeSignature(Signature s) {
 		// TODO Auto-generated method stub
 		signatures.remove(s);

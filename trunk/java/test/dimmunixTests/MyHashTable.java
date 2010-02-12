@@ -32,7 +32,6 @@ public class MyHashTable<K, V> extends Hashtable<K, V> {
 
 	private static final long serialVersionUID = 4577504604507512932L;
 
-	@Override
 	public synchronized boolean equals(Object o) {
 		try {
 			Thread.sleep(100);
@@ -42,7 +41,6 @@ public class MyHashTable<K, V> extends Hashtable<K, V> {
 		return super.equals(o);
 	}
 
-	@Override
 	public synchronized int size() {
 		return super.size();
 	}	

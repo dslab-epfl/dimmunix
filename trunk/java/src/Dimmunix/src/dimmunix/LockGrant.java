@@ -44,7 +44,6 @@ public class LockGrant {
 		this.position = position;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof LockGrant))
 			return false;

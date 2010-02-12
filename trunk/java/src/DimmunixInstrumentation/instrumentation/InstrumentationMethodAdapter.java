@@ -70,7 +70,6 @@ public class InstrumentationMethodAdapter extends MethodAdapter {
 		mv.visitInsn(Opcodes.MONITOREXIT);
 	}
 
-	@Override
 	public void visitMaxs(int maxStack, int maxLocals) {
 		mv.visitMaxs(maxStack + addedInstructions, maxLocals);
 	}
@@ -84,7 +83,6 @@ public class InstrumentationMethodAdapter extends MethodAdapter {
 		addedInstructions += 2;
 	}
 
-	@Override
 	public void visitInsn(int opcode) {
 
 		switch (opcode) {

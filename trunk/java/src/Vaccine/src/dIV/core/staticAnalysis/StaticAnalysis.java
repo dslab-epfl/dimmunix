@@ -1241,7 +1241,6 @@ public class StaticAnalysis extends IStaticAnalyzer {
 	//	}
 	}
 
-	@Override
 	public StaticAnswer checkSignature(Signature s) {
 		this.LSeqsList = new Vector<Vector<Vector<Vector<LockEvent>>>>();
 		this.sig = s;

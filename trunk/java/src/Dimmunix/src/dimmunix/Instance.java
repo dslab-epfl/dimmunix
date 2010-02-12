@@ -64,7 +64,6 @@ public class Instance {
 		return true;
 	}
 
-	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < size(); i++) {
