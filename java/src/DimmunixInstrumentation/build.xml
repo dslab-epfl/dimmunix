@@ -11,7 +11,7 @@
     <!-- Compile java code from ${src} into ${bin} -->
     <javac srcdir="${src}" destdir="${bin}">
       	<classpath>
-      		<pathelement path="../Dimmunix/bin"/>
+      		<pathelement location="../Dimmunix/bin"/>
         </classpath>
     </javac>
   </target>
