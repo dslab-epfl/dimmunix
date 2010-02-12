@@ -41,7 +41,6 @@ public class InstrumentationClassAdapter extends ClassAdapter {
 		this.clTrans = clTrans;
 	}
 
-	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc,
 			String signature, String[] exceptions) {
 		MethodVisitor mv;

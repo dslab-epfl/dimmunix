@@ -56,37 +56,31 @@ public class Validator extends IValidator {
 	public IReputationSystem reputationSystem;
 	public IStaticAnalyzer staticAnalyzer;
 
-	@Override
 	public void registerMonitoringSystem(IMonitoringSystem ms) {
 		this.monitoringSystem = ms;
 		ms.setValidator(this);
 	}
 
-	@Override
 	public void registerReputationSystem(IReputationSystem rs) {
 		this.reputationSystem = rs;
 		rs.setValidator(this);
 	}
 
-	@Override
 	public void registerStaticAnalyzer(IStaticAnalyzer sa) {
 		this.staticAnalyzer = sa;
 		sa.setValidator(this);
 	}
 
-	@Override
 	public void acceptSignatures(LinkedList<Signature> list) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void disableSignature(Signature s) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void sendReputationInformation(ReputationInformation ri) {
 		reputationSystem.updateReputationInformation(ri);
 	}

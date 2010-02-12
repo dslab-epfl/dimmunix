@@ -45,7 +45,6 @@ public class SignaturePosition {
 		this.dimmunix = dImmunix;
 	}
 	
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof SignaturePosition))
 			return false;
@@ -53,7 +52,6 @@ public class SignaturePosition {
 		return value == tpos.value;
 	}
 
-	@Override
 	public String toString() {
 		return depth+ "#"+ value;
 	}		

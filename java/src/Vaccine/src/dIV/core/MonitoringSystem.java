@@ -42,7 +42,6 @@ public class MonitoringSystem extends IMonitoringSystem {
 	private IReadOnlyHistory history = getHistory();
 	private LogFile logFile = getLogFile();
 	
-	@Override
 	public void monitorSignatures() {
 		// TODO Auto-generated method stub
 		

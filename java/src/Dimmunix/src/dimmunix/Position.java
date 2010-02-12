@@ -89,7 +89,6 @@ public class Position {
 		return lg.n;
 	}
 	
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof Position)) {
 			return false;
@@ -97,12 +96,10 @@ public class Position {
 		return this.callStack.equals(((Position)obj).callStack);
 	}
 
-	@Override
 	public int hashCode() {
 		return this.callStack.hashCode();
 	}
 
-	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
