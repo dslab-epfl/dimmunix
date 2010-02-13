@@ -7,12 +7,12 @@ echo
 
 echo "---------run test program; it should deadlock now"
 rm -f dlock.history
-LD_PRELOAD=../src/libdimmunix.so ./test
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./test
 
 echo
 
 echo "---------run test program; now it should not deadlock"
-LD_PRELOAD=../src/libdimmunix.so ./test
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./test
 
 echo
 
@@ -24,12 +24,12 @@ echo
 
 echo "---------run HawkNL test; it should deadlock now"
 rm -f dlock.history
-LD_PRELOAD=../../../src/libdimmunix.so ./deadlock3
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./deadlock3
 
 echo
 
 echo "---------run HawkNL test; now it should not deadlock"
-LD_PRELOAD=../../../src/libdimmunix.so ./deadlock3
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./deadlock3
 
 echo
 
@@ -44,9 +44,9 @@ echo
 
 echo "---------run SQLite test; it should deadlock now"
 rm -f dlock.history
-LD_PRELOAD=../../../src/libdimmunix.so ./deadlock
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./deadlock
 
 echo
 
 echo "---------run SQLite test; now it should not deadlock"
-LD_PRELOAD=../../../src/libdimmunix.so ./deadlock
+LD_PRELOAD=$HOME/Dimmunix/libdimmunix.so ./deadlock
