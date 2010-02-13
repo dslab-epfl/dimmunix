@@ -33,6 +33,7 @@ svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads dimmunix-pthreads
 {{{
 cd dimmunix-pthreads/src
 scons
+cp libdimmunix.so $HOME/Dimmunix
 }}}
  This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ program.
 
