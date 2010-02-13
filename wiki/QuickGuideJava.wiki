@@ -75,13 +75,14 @@ java -cp ./dimmunix-java/test dimmunixTests.Test
  You notice that the test deadlocks every time you run it. You can terminate it by typing *Ctrl-C*.
 3. Now run the test program with Dimmunix
 {{{
-java -cp ./dimmunix-java/test:./asm-3.2/lib/asm-3.2.jar -Xbootclasspath/p:dimmunix-java/src/Dimmunix/bin -javaagent:dimmunix-java/src/DimmunixInstrumentation/DimmunixAgent.jar dimmunixTests.Test
+java -cp ./dimmunix-java/test:./asm-3.2/lib/asm-3.2.jar -Xbootclasspath/p:./dimmunix-java/src/Dimmunix/bin -javaagent:./dimmunix-java/src/DimmunixInstrumentation/DimmunixAgent.jar dimmunixTests.Test
 }}}
  You notice that the program deadlocks in the first one or two runs. Terminate the program with *Ctrl-C* every time it deadlocks. Run the test program with Dimmunix again. You notice that the program does not deadlock in the subsequent runs.
 
 === If you installed Dimmunix from precompiled binaries ===
 1. Download test programs
 {{{
+cd $HOME/Dimmunix
 wget http://dimmunix.googlecode.com/files/DimmunixTests.jar
 }}}
 
