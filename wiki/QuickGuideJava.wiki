@@ -32,7 +32,7 @@ svn checkout http://dimmunix.googlecode.com/svn/trunk/java dimmunix-java
 cd dimmunix-java/src/Dimmunix
 ant
 cd ../DimmunixInstrumentation
-export CLASSPATH=$CLASSPATH:<path to asm-3.2>/lib/asm-3.2.jar
+export CLASSPATH=$CLASSPATH:$HOME/Dimmunix/asm-3.2/lib/asm-3.2.jar
 ant
 }}}
 
