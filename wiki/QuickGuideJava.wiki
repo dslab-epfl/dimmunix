@@ -12,7 +12,7 @@ mkdir $HOME/Dimmunix
 cd $HOME/Dimmunix
 }}}
 
-=== From Source Code ===
+=== Install Dimmunix From Source Code ===
 
  # Install prerequisite packages
 {{{
@@ -36,7 +36,7 @@ export CLASSPATH=$CLASSPATH:<path to asm-3.2>/lib/asm-3.2.jar
 ant
 }}}
 
-=== From Precompiled Binaries ===
+=== Install Dimmunix From Precompiled Binaries ===
 
  # Install prerequisite packages
 {{{
