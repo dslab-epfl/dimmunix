@@ -12,24 +12,26 @@ We tested POSIX Threads Dimmunix on the following Linux distributions:
 
 == Install POSIX Threads Dimmunix ==
 
-Create a folder where to download Dimmunix. 
+Create a folder where to download Dimmunix
 {{{
 mkdir $HOME/Dimmunix
 cd $HOME/Dimmunix
 }}}
 
-=== Install Dimmunix From Source Code ===
-
-1. Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
+Install prerequisite packages
 {{{
 sudo apt-get install make gcc g++ scons
 }}} 
  The versions of these package on our Ubuntu 9.10 32 bit installation are: g++ 4.4.1, gcc 4.4.1, make 3.81, scons 1.2.0.
-2. Check out POSIX Threads Dimmunix 
+
+
+=== Install Dimmunix From Source Code ===
+
+1. Check out POSIX Threads Dimmunix 
 {{{
 svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads dimmunix-pthreads
 }}}
-3. Compile POSIX Threads Dimmunix
+2. Compile POSIX Threads Dimmunix
 {{{
 cd dimmunix-pthreads/src
 scons
