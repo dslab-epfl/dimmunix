@@ -18,7 +18,7 @@ mkdir $HOME/Dimmunix
 cd $HOME/Dimmunix
 }}}
 
-=== Install From Source Code ===
+=== Install Dimmunix From Source Code ===
 
 1. Install scons, g++, gcc, make. To install these packages in Ubuntu, run:
 {{{
