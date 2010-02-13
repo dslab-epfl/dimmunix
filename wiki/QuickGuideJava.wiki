@@ -38,6 +38,10 @@ ant
 
 === From Precompiled Binaries ===
 
+ # Install prerequisite packages
+{{{
+sudo apt-get install unzip wget
+}}}
  # Download and unpack the ASM instrumentation framework
 {{{
 wget http://download.forge.objectweb.org/asm/asm-3.2-bin.zip
