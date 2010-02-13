@@ -57,6 +57,7 @@ java -cp .:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:../src/Dimmunix/b
 
 === If you installed Dimmunix from precompiled binaries ===
 1. Download [http://dimmunix.googlecode.com/files/DimmunixTests.jar test programs]
+
 2. Run the test from Test.java
 {{{
 java -cp <path to DimmunixTests.jar> dimmunixTests.Test
