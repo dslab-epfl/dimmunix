@@ -99,15 +99,3 @@ java -cp ./DimmunixTests.jar dimmunixTests.Test
 java -cp ./DimmunixTests.jar:./asm-3.2/lib/asm-3.2.jar -Xbootclasspath/p:./Dimmunix.jar -javaagent:./DimmunixAgent.jar dimmunixTests.Test
 }}}
  You notice that the program deadlocks in the first one or two runs. Terminate the program with *Ctrl-C* every time it deadlocks. Run the test program with Dimmunix again. You notice that the program does not deadlock in the subsequent runs.
-
-== Inspect the Deadlock History ==
-
-You can find the deadlock history in $HOME/Dimmunix/Dimmunix.hist.
-
-The deadlock history consists of deadlock signatures, one per line.
-
-The signature of a deadlock involving n threads has the following format:
-{{{
-deadlock_template=depth_1#call_stack_1;...;depth_n#call_stack_n
-}}}
- where call_stack_i represents the call stack thread i had when it acquired a lock involved in the deadlock.
