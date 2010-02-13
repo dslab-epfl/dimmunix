@@ -37,9 +37,19 @@ cp libdimmunix.so $HOME/Dimmunix
 }}}
  This will create libdimmunix.so shared library (in folder dimmunix-pthreads-src), that can be linked through LD_PRELOAD to any C/C++ program.
 
+=== Install Dimmunix From Precompiled Binaries ===
+
+# Download Dimmunix library
+{{{
+cd $HOME/Dimmunix
+wget http://dimmunix.googlecode.com/files/libdimmunix.so
+}}}
+
 == Use Dimmunix on Test C/C++ Programs ==
 
-In dimmunix-pthreads-test/test.cc, dimmunix-pthreads-test/hawknl/src/deadlock3.c and dimmunix-pthreads-test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
+=== If you installed Dimmunix from source code ===
+
+In dimmunix-pthreads/test/test.cc, dimmunix-pthreads/test/hawknl/src/deadlock3.c and dimmunix-pthreads/test/sqlite/deadlock_test/deadlock.c, you can find test programs that deadlock deterministically. 
 
 To compile and run the tests, run
 {{{
@@ -48,3 +58,16 @@ sh ./run_tests
 }}}
 
 In the first run, each test deadlocks and Dimmunix saves the deadlock history in the folder containing the test. In future runs, the test never deadlocks again.
+
+=== If you installed Dimmunix from precompiled binaries ===
+
+# Check out the test programs
+{{{
+cd $HOME/Dimmunix
+svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/test dimmunix-pthreads-test
+}}}
+# To compile and run the tests, run
+{{{
+cd dimmunix-pthreads-test
+sh ./run_tests
+}}}
