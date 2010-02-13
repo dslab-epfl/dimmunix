@@ -64,7 +64,7 @@ To use Dimmunix on a test program, do the following steps:
 === If you installed Dimmunix from source code ===
 1. Compile the tests
 {{{
-cd dimmunix-java/test
+cd $HOME/Dimmunix/dimmunix-java/test
 ant
 }}}
 2. Run the test from Test.java
