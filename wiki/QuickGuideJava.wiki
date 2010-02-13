@@ -31,7 +31,6 @@ ant
  # Download and unpack the [http://download.forge.objectweb.org/asm/asm-3.2-bin.zip ASM instrumentation framework]
  # Download [http://dimmunix.googlecode.com/files/Dimmunix.jar Dimmunix]
  # Download [http://dimmunix.googlecode.com/files/DimmunixAgent.jar Dimmunix agent]
- # Download [http://dimmunix.googlecode.com/files/DimmunixTests.jar test programs]
 
 == Use Dimmunix on Test Java Programs ==
 
@@ -53,6 +52,19 @@ java dimmunixTests.Test
 3. Now run the test program with Dimmunix
 {{{
 java -cp .:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:../src/Dimmunix/bin -javaagent:../src/DimmunixInstrumentation/DimmunixAgent.jar dimmunixTests.Test
+}}}
+ You notice that the program deadlocks in the first run. Terminate the program with *Ctrl-C*. Run the test program with Dimmunix again. You notice that the program does not deadlock in the subsequent runs.
+
+=== If you installed Dimmunix from precompiled binaries ===
+1. Download [http://dimmunix.googlecode.com/files/DimmunixTests.jar test programs]
+2. Run the test from Test.java
+{{{
+java -cp <path to DimmunixTests.jar> dimmunixTests.Test
+}}}
+ You notice that the test deadlocks every time you run it. You can terminate it by typing *Ctrl-C*.
+3. Now run the test program with Dimmunix
+{{{
+java -cp .:<path to DimmunixTests.jar>:<path to asm-3.2>/lib/asm-3.2.jar -Xbootclasspath/p:../src/Dimmunix/bin -javaagent:../src/DimmunixInstrumentation/DimmunixAgent.jar dimmunixTests.Test
 }}}
  You notice that the program deadlocks in the first run. Terminate the program with *Ctrl-C*. Run the test program with Dimmunix again. You notice that the program does not deadlock in the subsequent runs.
 
