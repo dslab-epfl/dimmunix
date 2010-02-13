@@ -4,6 +4,8 @@ This guide helps you install Java Dimmunix and use it to immunize Java programs 
 
 We tested Java Dimmunix on JRE 1.6, on an Ubuntu 9.10 32 bit system.
 
+* We recommend you to run the instructions from this guide in Ubuntu. *
+
 == Install Java Dimmunix ==
 
 Create a folder where to download Dimmunix.
