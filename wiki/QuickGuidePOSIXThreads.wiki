@@ -39,7 +39,7 @@ cp libdimmunix.so $HOME/Dimmunix
 
 === Install Dimmunix From Precompiled Binaries ===
 
-# Download Dimmunix library
+Download Dimmunix library
 {{{
 cd $HOME/Dimmunix
 wget http://dimmunix.googlecode.com/files/libdimmunix.so
@@ -61,12 +61,12 @@ In the first run, each test deadlocks and Dimmunix saves the deadlock history in
 
 === If you installed Dimmunix from precompiled binaries ===
 
-# Check out the test programs
+ # Check out the test programs
 {{{
 cd $HOME/Dimmunix
 svn checkout http://dimmunix.googlecode.com/svn/trunk/pthreads/test dimmunix-pthreads-test
 }}}
-# To compile and run the tests, run
+ # To compile and run the tests, run
 {{{
 cd dimmunix-pthreads-test
 sh ./run_tests
