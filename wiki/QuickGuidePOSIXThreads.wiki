@@ -10,6 +10,8 @@ We tested POSIX Threads Dimmunix on the following Linux distributions:
   * Fedora 11 32 bit
   * Fedora 9 32 bit
 
+* We recommend you to run the instructions from this guide in Ubuntu. *
+
 == Install POSIX Threads Dimmunix ==
 
 Create a folder where to download Dimmunix
