@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/horatiu/asm-3.2/lib/asm-3.2.jar" sourcepath="/home/horatiu/asm-3.2/src.zip"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/aspectjweaver1.6.8-src"/>
+	<classpathentry kind="lib" path="/home/horatiu/sootall-2.4.0/soot-2.4.0/lib/sootclasses-2.4.0.jar" sourcepath="/home/horatiu/sootall-2.4.0/soot-2.4.0/lib/sootsrc-2.4.0.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

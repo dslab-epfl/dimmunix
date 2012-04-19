@@ -1,0 +1,49 @@
+<project name="Dimmunix" default="jar" basedir=".">
+    <description>
+        build Dimmunix
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="."/>
+  <property name="bin" location="."/>
+  	
+    <taskdef 
+        resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+      <classpath>
+        <pathelement location="${user.home}/aspectj-1.6.8/lib/aspectjtools.jar"/>
+      </classpath>
+    </taskdef>
+
+  <target name="build" 
+        description="compile the source " >
+      	<iajc sourceroots="${src}" source="1.6">
+	        <classpath>
+		          <pathelement location="${user.home}/asm-3.2/lib/asm-3.2.jar"/>
+		          <pathelement location="${user.home}/aspectj-1.6.8/lib/aspectjrt.jar"/>
+		          <pathelement location="${user.home}/sootall-2.4.0/soot-2.4.0/lib/sootclasses-2.4.0.jar"/>
+		          <pathelement location="${user.home}/workspace/aspectjweaver1.6.8-src/aspectjweaver.jar"/>
+	        </classpath>
+        </iajc>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete ${bin} directory tree -->
+    <delete> <fileset dir="dimmunix" includes="*.class" /> </delete>
+    <delete> <fileset dir="communix" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/analysis" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/condvar" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/deadlock" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/external" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/hybrid" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/init" includes="*.class" /> </delete>
+    <delete> <fileset dir="dimmunix/profiler" includes="*.class" /> </delete>
+    <delete> <fileset dir="." includes="*.jar" /> </delete>
+  </target>
+	
+  <target name="jar" depends="build">
+	<!-- Build the jar file -->
+    <delete> <fileset dir="." includes="*.jar" /> </delete>
+	<jar basedir="." manifest="MANIFEST.MF" destfile="DimmunixAgent.jar"/>
+  </target>
+
+</project>
