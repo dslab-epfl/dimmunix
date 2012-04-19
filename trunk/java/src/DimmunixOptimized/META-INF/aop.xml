@@ -1,0 +1,11 @@
+<aspectj>
+	<aspects>
+		<aspect name="dimmunix.Instrumentation" />
+	</aspects>
+
+	<weaver options="-Xjoinpoints:synchronization -Xlint:ignore">
+		<exclude within="org.aspectj.*"/>
+		<exclude within="java.*"/>
+		<exclude within="javax.*"/>
+	</weaver>
+</aspectj>

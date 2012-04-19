@@ -1,0 +1,38 @@
+<project name="aspectjweaver" default="jar" basedir=".">
+    <description>
+        build aspectj weaver
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the bin directory -->
+    <mkdir dir="${bin}"/>
+  </target>
+
+  <target name="build" depends="init"
+        description="compile the source " >
+    <!-- Compile java code from ${src} into ${bin} -->
+    <javac srcdir="${src}" destdir="${bin}"> 
+    	<classpath>
+    		<pathelement location="commons-logging.jar"/>
+    		<pathelement location="${user.home}/asm-3.2/lib/asm-3.2.jar"/>
+    	</classpath>
+    </javac>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete ${bin} directory tree -->
+    <delete dir="${bin}"/>
+  </target>
+	
+	  <target name="jar" depends="build">
+		<!-- Build the jar file -->
+	    <delete> <fileset dir="." includes="aspectjweaver.jar" /> </delete>
+		<jar basedir="bin" manifest="MANIFEST.MF" destfile="aspectjweaver.jar"/>
+	  </target>	
+</project>

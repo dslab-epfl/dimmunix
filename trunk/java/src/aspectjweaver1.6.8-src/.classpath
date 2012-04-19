@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/horatiu/asm-3.2/lib/asm-3.2.jar" sourcepath="/home/horatiu/asm-3.2/src.zip"/>
+	<classpathentry kind="lib" path="commons-logging.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
