@@ -17,6 +17,10 @@ unzip asm-3.2-bin.zip
 }}}
  # Download and compile our modified AspectJ weaver
 {{{
+wget http://dimmunix.googlecode.com/files/aspectjweaver1.6.8-src.zip
+unzip aspectjweaver1.6.8-src.zip
+cd aspectjweaver1.6.8-src
+ant
 }}}
  # Download the Soot bytecode analysis framework
 {{{
