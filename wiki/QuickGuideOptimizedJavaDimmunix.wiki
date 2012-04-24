@@ -1,0 +1,40 @@
+= Quick Guide to Using the Optimized Java Dimmunix =
+
+This guide helps you install and use the optimized Java Dimmunix.
+
+* We recommend you to run the instructions from this guide in Ubuntu. Run all instructions in the same terminal window. *
+
+== Install the Optimized Java Dimmunix ==
+
+ # Install prerequisite packages
+{{{
+sudo apt-get install ant subversion unzip wget
+}}}
+ # Download and unpack the ASM instrumentation framework
+{{{
+wget http://download.forge.objectweb.org/asm/asm-3.2-bin.zip
+unzip asm-3.2-bin.zip
+}}}
+ # Download and compile our modified AspectJ weaver
+{{{
+}}}
+ # Download the Soot bytecode analysis framework
+{{{
+wget http://www.sable.mcgill.ca/software/sootall-2.3.0.tar.gz
+mkdir sootall-2.3.0 ; tar -xzf sootall-2.3.0.tar.gz -C sootall-2.3.0
+}}}
+ # Check out Dimmunix
+{{{
+svn checkout http://dimmunix.googlecode.com/svn/trunk/java/src/DimmunixOptimized Dimmunix
+}}}
+ # Compile Dimmunix 
+{{{
+cd /path/to/Dimmunix
+ant
+}}}
+
+== Run Java Programs with the Optimized Dimmunix ==
+
+{{{
+java -Xbootclasspath/p:/path/to/aspectjweaver1.6.8-src/aspectjweaver.jar:/path/to/Dimmunix:/path/to/sootall-2.3.0/soot-2.3.0/lib/sootclasses-2.3.0.jar:/path/to/asm-3.2/lib/asm-3.2.jar
+}}}
