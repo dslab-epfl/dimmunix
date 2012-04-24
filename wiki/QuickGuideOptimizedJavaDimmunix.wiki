@@ -39,6 +39,7 @@ ant
 
 == Run Java Programs with the Optimized Dimmunix ==
 
+Prepend the following to the command line arguments:
 {{{
 java -Xbootclasspath/p:/path/to/aspectjweaver1.6.8-src/aspectjweaver.jar:/path/to/Dimmunix:/path/to/sootall-2.3.0/soot-2.3.0/lib/sootclasses-2.3.0.jar:/path/to/asm-3.2/lib/asm-3.2.jar -javaagent:/path/to/aspectjweaver1.6.8-src/aspectjweaver.jar -javaagent:/path/to/Dimmunix/DimmunixAgent.jar ...
 }}}
